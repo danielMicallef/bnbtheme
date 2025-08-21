@@ -1,0 +1,79 @@
+---
+import Layout from '../layouts/Layout.astro';
+import amenities from '../data/amenities.json';
+import hostAvatar from '../assets/hosts/primary_host.jpg';
+import { Image } from 'astro:assets';
+---
+
+<Layout>
+  <div class="space-y-8">
+    <div>
+      <h1 class="text-4xl font-bold mb-4">About This Space</h1>
+      <div class="text-gray-600 space-y-4">
+        <p class="text-lg ">
+          A lovely, sea-view apartment with a fully-equipped kitchen and two air-conditioned bedrooms (sleep 4 and sofa bed which can be opened in a double bed, accommodating 6 total).
+        </p>
+        <p class="text-lg">
+          A 2 minute walk from Xlendi beach, with a host of restaurants, bars and coffee shops. Also close to a grocery.
+        </p>
+        <p class="text-lg">
+          Spacious balcony with lovely sunset views, ideal for a romantic dinner.
+        </p>
+        <p class="text-lg">
+          Free wifi available.
+        </p>
+        <div x-data class="mt-4">
+          <h2 class="text-2xl mb-4">Your hosts</h2>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-4">
+            <div x-on:click="window.location.href='/contact'" class="mt-4 flex items-center p-2 cursor-pointer rounded-lg hover:bg-base-200">
+              <Image src={hostAvatar} alt="Host Avatar" class="w-12 h-12 rounded-full mr-4 object-cover" />
+              <div>
+                  <h3 class="font-semibold">Hosted by Daniel</h3>
+                  <p class="text-gray-600">3 years hosting</p>
+              </div>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+      
+    </div>
+
+    <div>
+      <h2 class="text-2xl mb-4">The Space</h2>
+      <p class="text-lg text-gray-600">
+        The apartment is one floor up, and includes a large living space, kitchen area with balcony, two bedrooms (one with ensuite), a bathroom and a laundry room.
+      </p>
+    </div>
+
+    <div>
+      <h2 class="text-2xl mb-4">Guest Access</h2>
+      <p class="text-lg text-gray-600">
+        Guests are able to access the whole apartment.
+      </p>
+    </div>
+
+    <div>
+      <h2 class="text-2xl mb-4">Other Things to Note</h2>
+      <p class="text-lg text-gray-600 ">
+        Air-conditioning is available on a pay per use basis. It will cost approximately €2/night.
+      </p>
+    </div>
+
+    <div id="amenities">
+      <h2 class="text-2xl font-bold mb-4">What this place offers</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        {amenities.map(category => (
+          <div>
+            <h3 class="text-xl font-semibold mb-2 text-gray-800">{category.category}</h3>
+            <ul class="list-disc list-inside text-gray-600">
+              {category.items.map(item => (
+                <li class={category.unavailable ? 'line-through' : ''}>{item}</li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</Layout>

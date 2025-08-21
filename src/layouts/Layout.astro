@@ -1,22 +1,37 @@
+---
+import "../assets/app.css";
+import Calendar from "../components/Calendar.astro";
+---
+
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="cupcake">
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
+		<title>{import.meta.env.PUBLIC_SITE_NAME}</title>
+		 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+		integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+		crossorigin=""/>
 	</head>
 	<body>
-		<slot />
+		<div class="navbar shadow-sm">
+			<div class="flex-1">
+				<a href={import.meta.env.BASE_URL} class="btn btn-ghost text-xl">{import.meta.env.PUBLIC_SITE_NAME}</a>
+			</div>
+			<div class="flex-none">
+				<ul class="menu menu-horizontal px-1 gap-x-3">
+					<li><Calendar /></li>
+					<li><a href="/about" class="btn btn-ghost">About</a></li>
+					<li><a href="/contact" class="btn btn-ghost">Your Hosts</a></li>
+
+					<!-- <li><a href="/contact" class="btn btn-ghost">Contact Your Hosts</a></li> -->
+				</ul>
+			</div>
+		</div>
+		<div class="container mx-auto px-4 py-8">
+			<slot />
+		</div>
 	</body>
 </html>
-
-<style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
-</style>

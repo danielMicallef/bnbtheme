@@ -1,0 +1,93 @@
+[
+  {
+    "category": "Scenic views",
+    "items": ["Sea view"]
+  },
+  {
+    "category": "Bathroom",
+    "items": ["Hair dryer", "Cleaning products", "Hot water"]
+  },
+  {
+    "category": "Bedroom and laundry",
+    "items": [
+      "Free washer – In unit",
+      "EssentialsTowels, bed sheets, soap, and toilet paper",
+      "Hangers",
+      "Bed linensEgyptian cotton linens",
+      "Extra pillows and blankets",
+      "Room-darkening shades",
+      "Iron",
+      "Drying rack for clothing",
+      "Safe",
+      "Mosquito net",
+      "Clothing storage: wardrobe and dresser"
+    ]
+  },
+  {
+    "category": "Entertainment",
+    "items": ["32 inch HDTV with Netflix"]
+  },
+  {
+    "category": "Family",
+    "items": ["Crib"]
+  },
+  {
+    "category": "Heating and cooling",
+    "items": ["AC - split type ductless system (pay per use basis)", "Radiant heating"]
+  },
+  {
+    "category": "Home safety",
+    "items": ["Carbon monoxide alarm", "Fire extinguisher", "First aid kit"]
+  },
+  {
+    "category": "Internet and office",
+    "items": ["Wifi", "Dedicated workspace"]
+  },
+  {
+    "category": "Kitchen and dining",
+    "items": [
+      "KitchenSpace where guests can cook their own meals",
+      "Samsung refrigerator",
+      "Microwave",
+      "Cooking basicsPots and pans, oil, salt and pepper",
+      "Dishes and silverwareBowls, chopsticks, plates, cups, etc.",
+      "Freezer",
+      "Stainless steel gas stove",
+      "Stainless steel oven",
+      "Hot water kettle",
+      "Coffee maker: french press",
+      "Wine glasses",
+      "Toaster",
+      "Dining table",
+      "Coffee"
+    ]
+  },
+  {
+    "category": "Location features",
+    "items": ["Shared beach access – BeachfrontGuests can enjoy a nearby beach"]
+  },
+  {
+    "category": "Outdoor",
+    "items": ["Private patio or balcony", "Outdoor dining area"]
+  },
+  {
+    "category": "Parking and facilities",
+    "items": ["Free parking on premises", "Free street parking"]
+  },
+  {
+    "category": "Services",
+    "items": [
+      "Pets allowedAssistance animals are always allowed",
+      "Luggage dropoff allowedFor guests' convenience when they have early arrival or late departure",
+      "Long term stays allowedAllow stay for 28 days or more",
+      "Self check-in",
+      "Lockbox",
+      "Cleaning available during stay"
+    ]
+  },
+  {
+    "category": "Not included",
+    "items": ["Exterior security cameras on property", "Dryer", "Lift"],
+    "unavailable": true
+  }
+]

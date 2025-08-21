@@ -1,0 +1,75 @@
+---
+import amenities from "../data/amenities.json";
+import PropertyMap from "./PropertyMap.astro";
+const totalAmenities = amenities.reduce(
+  (acc, category) => acc + category.items.length,
+  0
+);
+---
+
+<div class="p-6 border-b border-gray-200">
+  <h3 class="text-xl font-semibold">Where you'll sleep</h3>
+  <div class="grid grid-cols-2 gap-4 mt-2">
+    <div class="card bg-gray-50 p-2">
+      <img
+        src="https://via.placeholder.com/200x150"
+        alt="Bedroom 1"
+        class="w-full h-32 object-cover"
+      />
+      <p>Bedroom 1</p>
+      <p>1 queen bed, 2 sofa beds</p>
+    </div>
+    <div class="card bg-gray-50 p-2">
+      <img
+        src="https://via.placeholder.com/200x150"
+        alt="Bedroom 2"
+        class="w-full h-32 object-cover"
+      />
+      <p>Bedroom 2</p>
+      <p>1 double bed</p>
+    </div>
+  </div>
+</div>
+<div class="p-6 border-b border-gray-200">
+  <h3 class="text-xl font-semibold">What this place offers</h3>
+  <div class="grid grid-cols-2 gap-4 mt-2">
+    <div class="flex items-center">
+      <span class="text-blue-500 mr-2">✔</span> Sea view
+    </div>
+    <div class="flex items-center">
+      <span class="text-blue-500 mr-2">✔</span> Shared beach access -- Beachfront
+    </div>
+    <div class="flex items-center">
+      <span class="text-blue-500 mr-2">✔</span> Kitchen
+    </div>
+    <div class="flex items-center">
+      <span class="text-blue-500 mr-2">✔</span> Wifi
+    </div>
+    <div class="flex items-center">
+      <span class="text-blue-500 mr-2">✔</span> Dedicated workspace
+    </div>
+    <div class="flex items-center">
+      <span class="text-blue-500 mr-2">✔</span> Free parking on premises
+    </div>
+    <div class="flex items-center">
+      <span class="text-blue-500 mr-2">✔</span> Pets allowed
+    </div>
+    <div class="flex items-center">
+      <span class="text-blue-500 mr-2">✔</span> 32 inch HDTV with Netflix
+    </div>
+    <div class="flex items-center">
+      <span class="text-blue-500 mr-2">✔</span> Free washer -- in unit
+    </div>
+    <div class="flex items-center">
+      <span class="text-blue-500 mr-2">✔</span> Smoke alarm
+    </div>
+  </div>
+  <a href="/about#amenities" class="btn btn-sm btn-outline mt-2"
+    >Show all {totalAmenities} amenities</a
+  >
+</div>
+
+<div class="p-6 border-b border-gray-200">
+  <h3 class="text-xl font-semibold">Where you'll be</h3>
+  <PropertyMap />
+</div>

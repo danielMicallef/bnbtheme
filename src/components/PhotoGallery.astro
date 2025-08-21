@@ -1,0 +1,22 @@
+---
+import { Image } from "astro:assets";
+---
+
+<div class="container mx-auto p-4">
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+    <div class="col-span-1 md:col-span-1">
+      <Image inferSize={true} src="https://a0.muscache.com/im/pictures/miso/Hosting-559907383709411950/original/da7586ef-2daa-4414-a28b-d85a12e41fda.jpeg?im_w=960" alt="Main view of the apartment" class="rounded-lg object-cover w-full h-full" />
+    </div>
+    <div class="grid grid-cols-2 gap-2">
+      <Image inferSize={true} src="https://a0.muscache.com/im/pictures/miso/Hosting-559907383709411950/original/da7586ef-2daa-4414-a28b-d85a12e41fda.jpeg?im_w=960" alt="Living room" class="rounded-lg object-cover w-full h-full"/>
+      <Image inferSize={true} src="https://a0.muscache.com/im/pictures/miso/Hosting-559907383709411950/original/da7586ef-2daa-4414-a28b-d85a12e41fda.jpeg?im_w=960" alt="Balcony view" class="rounded-lg object-cover w-full h-full"/>
+      <Image inferSize={true} src="https://a0.muscache.com/im/pictures/miso/Hosting-559907383709411950/original/da7586ef-2daa-4414-a28b-d85a12e41fda.jpeg?im_w=960" alt="Kitchen" class="rounded-lg object-cover w-full h-full"/>
+      <div class="relative">
+        <img src="https://a0.muscache.com/im/pictures/miso/Hosting-559907383709411950/original/da7586ef-2daa-4414-a28b-d85a12e41fda.jpeg?im_w=960" alt="Bedroom" class="rounded-lg object-cover w-full h-full" />
+        <div class="absolute inset-0 bg-slate-700/50 flex items-center justify-center rounded-lg">
+          <button class="btn">Show all photos</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
