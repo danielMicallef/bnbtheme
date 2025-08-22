@@ -1,10 +1,8 @@
-# Astro Starter Kit: Basics
+# BNBTheme with Astro
 
-```sh
-bun create astro@latest -- --template basics
-```
+This is intended to be a bnb theme to easily advertise your short let apartment
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+> Used to advertise seaviewapartmentxlendi.com
 
 ## 🚀 Project Structure
 
