@@ -1,14 +1,25 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import {Content as AboutUs} from '../components/contact/about_us.md'
+import { Mail, PhoneCall } from '@lucide/astro';
 ---
 
 <Layout>
   <div class="space-y-8">
     <div>
-      <h1 class="text-4xl font-bold mb-4">Your Hosts</h1>
-      <div class="text-gray-600 space-y-4">
-        <h2 class="text-3xl">About</h2>
-        <h2 class="text-3xl">Contact</h2>
+      <h1>Your Hosts</h1>
+      <div class="space-y-4">
+        <div class="grid grid-cols-2">
+          <div class="flex items-center space-x-2">
+            <PhoneCall />
+            <a href="tel:+35679416569">+356 79416569</a>
+          </div>
+          <div class="flex items-center space-x-2">
+            <Mail />
+            <a target="_blank" href="mailto:info@seaviewapartmentxlendi.com">info@seaviewapartmentxlendi.com</a>
+          </div>
+        </div>
+        <AboutUs />
       </div>
     </div>
   </div>

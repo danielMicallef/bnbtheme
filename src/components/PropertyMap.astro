@@ -4,7 +4,7 @@ import 'leaflet/dist/leaflet.css';
 
 <div id="map" style="height: 500px;"></div>
 
-<script is:inline>
+<script>
   import L from 'leaflet';
   const map = L.map('map').setView([36.02777962096894, 14.217282968662833], 13);
 
@@ -15,7 +15,7 @@ import 'leaflet/dist/leaflet.css';
 
   // Add marker at the specified coordinates
   L.marker([36.02777962096894, 14.217282968662833]).addTo(map)
-    .bindPopup('Center Point')
+    .bindPopup('4, Palm Court, Triq it-Torri, Xlendi')
     .openPopup();
 </script>
 

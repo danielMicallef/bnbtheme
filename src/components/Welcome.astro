@@ -1,44 +1,58 @@
 ---
 import BookNow from '../components/BookNow.astro';
 import hostAvatar from '../assets/hosts/primary_host.jpg';
+import secondaryHostAvatar from '../assets/hosts/secondary_host.jpeg';
 import { Image } from 'astro:assets';
-import { Coffee } from '@lucide/astro';
-import { Sun } from '@lucide/astro';
-import { Lock } from '@lucide/astro';
-
+import { Coffee, Sun, Lock } from '@lucide/astro';
 ---
 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
     <div class="p-4 ">
         <h2 class="text-2xl font-bold">Seaview 2-Bedroom Apartment in Xlendi</h2>
         <div class="flex items-center mt-2">
             <span class="text-yellow-500">★★★★☆ 4.87</span>
-            <span class="ml-2 text-gray-600">(30 reviews)</span>
+            <a target="_blank" href="https://www.airbnb.com/rooms/559907383709411950?guests=1&adults=1&s=67&unique_share_id=eda56810-3bd7-490d-a60a-804b70a21d5f" class="ml-2 text-gray-600 italic">(30 reviews on Airbnb)</a>
         </div>
+
+        <div class="flex items-center mt-2">
+            <span class="text-yellow-500">★★★★☆ 9.4</span>
+            <a target="_blank" href="https://www.booking.com/hotel/mt/seaview-2-bedroom-apartment-in-xlendi.html" class="ml-2 text-gray-600 italic">(39 reviews on Booking.com)</a>
+        </div>
+
         <p class="text-gray-600 mt-2">Entire rental unit in Munxar, Malta</p>
         <p class="text-gray-600">2 bedrooms · 4 beds · 2 baths</p>
-        <div x-data x-on:click="window.location.href='/contact'" class="mt-4 flex items-center cursor-pointer p-2 rounded-lg hover:bg-base-200">
-            <Image src={hostAvatar} alt="Host Avatar" class="w-12 h-12 rounded-full mr-4 object-cover" />
-            <div>
-                <h3 class="font-semibold">Hosted by Daniel</h3>
-                <p class="text-gray-600">3 years hosting</p>
+        <div x-data class="grid grid-cols-2 mt-4">
+            <div x-on:click="window.location.href='/contact'" class="flex items-center cursor-pointer p-2 rounded-lg hover:bg-base-200">
+                <Image src={hostAvatar} alt="Host Avatar" class="w-12 h-12 rounded-full mr-4 object-cover" />
+                <div>
+                    <h3 class="font-semibold">Hosted by Daniel</h3>
+                    <p class="text-gray-600">3 years hosting</p>
+                </div>
+            </div>
+            <div x-data x-on:click="window.location.href='/contact'" class="flex items-center cursor-pointer p-2 rounded-lg hover:bg-base-200">
+                <Image src={secondaryHostAvatar} alt="Host Avatar" class="w-12 h-12 rounded-full mr-4 object-cover" />
+                <div>
+                    <h3 class="font-semibold">Co-Hosted by Rebecca</h3>
+                    <p class="text-gray-600">3 years hosting</p>
+                </div>
             </div>
         </div>
+
         <div class="mt-4 space-y-2">
             <div class="flex items-center">
-            <Lock /> Self check-in with lockbox
+            <Lock class="mr-2" /> <p class="text text-gray-600">Self check-in with lockbox</p>
             </div>
             <div class="flex items-center">
-            <Sun /> Beautiful area
+            <Sun class="mr-2" /> <p class="text text-gray-600">Scenic Area</p>
             </div>
             <div class="flex items-center">
-            <Coffee /> At-home coffee
+            <Coffee class="mr-2" /> <p class="text text-gray-600">Brew your coffee</p>
             </div>
         </div>
         <div class="mt-4">
             <p class="text-gray-600 mt-2">
             A charming sea-view apartment featuring a fully-equipped kitchen and two air-conditioned bedrooms (sleeping 4, with a sofa bed that converts to a double bed for a total of 6 guests). Just a 2-minute walk from Xlendi beach, surrounded by a variety of restaurants, bars, and coffee shops, and near a grocery store. The property includes a spacious balcony with stunning sunset views, perfect for a romantic dinner. Complimentary Wi-Fi is included.
             </p>
-            <a href="/about" class="btn btn-sm btn-outline mt-2">Show more</a>
+            <a href="/about" class="btn btn-sm btn-outline mt-3">Read more</a>
         </div>
     </div>
     <div class="p-4">

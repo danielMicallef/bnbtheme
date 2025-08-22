@@ -3,3 +3,34 @@
    themes: light --default, dark --prefersdark, cupcake;
 
  }
+
+.prose h1 {
+    @apply text-3xl;
+    @apply font-bold; 
+    @apply mb-4;
+    
+}
+
+.prose h2 {
+    @apply text-3xl;
+    @apply text-gray-600;
+    @apply my-4;
+}
+
+.prose h3 {
+    @apply text-2xl;
+    @apply text-gray-600;
+    @apply my-4;
+}
+
+.prose p {
+    @apply my-2;
+    @apply text-gray-600;
+}
+
+.prose ul {
+    @apply list-disc;
+}
+.prose li {
+    @apply ml-6;
+}

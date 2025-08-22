@@ -2,7 +2,9 @@
 import Layout from '../layouts/Layout.astro';
 import amenities from '../data/amenities.json';
 import hostAvatar from '../assets/hosts/primary_host.jpg';
+import secondaryHostAvatar from '../assets/hosts/secondary_host.jpeg';
 import { Image } from 'astro:assets';
+import {Content as AboutYourStay} from '../components/contact/about_your_stay.md'
 ---
 
 <Layout>
@@ -23,14 +25,20 @@ import { Image } from 'astro:assets';
           Free wifi available.
         </p>
         <div x-data class="mt-4">
-          <h2 class="text-2xl mb-4">Your hosts</h2>
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-4">
-            <div x-on:click="window.location.href='/contact'" class="mt-4 flex items-center p-2 cursor-pointer rounded-lg hover:bg-base-200">
+            <div x-on:click="window.location.href='/contact'" class="mt-4 flex items-center p-4 cursor-pointer rounded-lg hover:bg-base-200">
               <Image src={hostAvatar} alt="Host Avatar" class="w-12 h-12 rounded-full mr-4 object-cover" />
               <div>
                   <h3 class="font-semibold">Hosted by Daniel</h3>
                   <p class="text-gray-600">3 years hosting</p>
               </div>
+            </div>
+            <div x-data x-on:click="window.location.href='/contact'" class="flex items-center cursor-pointer p-4 rounded-lg hover:bg-base-200">
+                <Image src={secondaryHostAvatar} alt="Host Avatar" class="w-12 h-12 rounded-full mr-4 object-cover" />
+                <div>
+                    <h3 class="font-semibold">Co-Hosted by Rebecca</h3>
+                    <p class="text-gray-600">3 years hosting</p>
+                </div>
             </div>
           </div>
           
@@ -39,26 +47,7 @@ import { Image } from 'astro:assets';
       
     </div>
 
-    <div>
-      <h2 class="text-2xl mb-4">The Space</h2>
-      <p class="text-lg text-gray-600">
-        The apartment is one floor up, and includes a large living space, kitchen area with balcony, two bedrooms (one with ensuite), a bathroom and a laundry room.
-      </p>
-    </div>
-
-    <div>
-      <h2 class="text-2xl mb-4">Guest Access</h2>
-      <p class="text-lg text-gray-600">
-        Guests are able to access the whole apartment.
-      </p>
-    </div>
-
-    <div>
-      <h2 class="text-2xl mb-4">Other Things to Note</h2>
-      <p class="text-lg text-gray-600 ">
-        Air-conditioning is available on a pay per use basis. It will cost approximately €2/night.
-      </p>
-    </div>
+    <AboutYourStay />
 
     <div id="amenities">
       <h2 class="text-2xl font-bold mb-4">What this place offers</h2>
