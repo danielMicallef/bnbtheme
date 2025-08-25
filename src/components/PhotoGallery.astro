@@ -1,21 +1,30 @@
 ---
 import { Image, getImage } from "astro:assets";
-import mainPhoto from '../assets/images/gallery_a.webp';
-import photo1 from '../assets/images/gallery_view.webp';
-import photo2 from '../assets/images/kitchen.webp';
-import photo3 from '../assets/images/sofa_area.webp';
-import photo4 from '../assets/images/dining_sofa.webp';
+import mainPhoto from '../assets/images/01_gallery_a.webp';
+import photo1 from '../assets/images/02_gallery_view.webp';
+import photo2 from '../assets/images/03_kitchen.webp';
+import photo3 from '../assets/images/04_sofa_area.webp';
+import photo4 from '../assets/images/07_dining_sofa.webp';
 
 // Find all image types, not just webp
 const allImageFiles = await import.meta.glob<{ default: ImageMetadata }>('../assets/images/*.{jpeg,jpg,png,gif,JPG,webp}');
 
-// Process each image to get its final, optimized path for the modal
-const imagePaths = await Promise.all(
+// Process each image to get its full responsive attributes for the modal
+const imagesData = await Promise.all(
   Object.values(allImageFiles).map(async (importImage) => {
     const imageModule = await importImage();
-    // Use getImage to let Astro process the image and return the correct public src path
-    const processedImage = await getImage({ src: imageModule.default, format: 'webp' });
-    return processedImage.src;
+    const processedImage = await getImage({ 
+      src: imageModule.default, 
+      format: 'webp',
+      // Define widths for the modal's responsive images
+      widths: [400, 800, 1200, 1600, 2400],
+    });
+    return {
+      src: processedImage.src,
+      srcset: processedImage.attributes.srcset,
+      // The modal image takes up the full viewport width
+      sizes: '100vw' 
+    };
   })
 );
 ---
@@ -23,7 +32,7 @@ const imagePaths = await Promise.all(
 <div x-data={`{
     isOpen: false,
     currentIndex: 0,
-    images: ${JSON.stringify(imagePaths)},
+    images: ${JSON.stringify(imagesData)},
     nextImage() {
         this.currentIndex = (this.currentIndex + 1) % this.images.length;
     },
@@ -35,6 +44,17 @@ const imagePaths = await Promise.all(
         this.isOpen = true;
     }
 }`}
+x-init="() => {
+    window.addEventListener('load', () => {
+        // Preload images with their full srcset for better performance
+        images.forEach(imgData => {
+            const img = new Image();
+            img.src = imgData.src;
+            img.srcset = imgData.srcset;
+            img.sizes = imgData.sizes;
+        });
+    });
+}"
 @keydown.escape.window="isOpen = false"
 @keydown.arrow-right.window="if (isOpen) nextImage()"
 @keydown.arrow-left.window="if (isOpen) prevImage()"
@@ -47,7 +67,8 @@ const imagePaths = await Promise.all(
                     src={mainPhoto} 
                     widths={[400, 800, 1200, 1600]}
                     sizes="(max-width: 768px) 100vw, 50vw"
-                    alt="Main view of the apartment" 
+                    alt="Main view of the apartment"
+                    priority={true} 
                     class="rounded-lg object-cover w-full h-full" />
             </div>
             <div class="grid grid-cols-2 gap-2">
@@ -55,26 +76,30 @@ const imagePaths = await Promise.all(
                     src={photo1} 
                     widths={[200, 400, 800]}
                     sizes="(max-width: 768px) 50vw, 25vw"
-                    alt="Gallery view" 
+                    alt="Gallery view"
+                    priority={true} 
                     class="rounded-lg object-cover w-full h-full"/>
                 <Image 
                     src={photo2} 
                     widths={[200, 400, 800]}
                     sizes="(max-width: 768px) 50vw, 25vw"
                     alt="Kitchen" 
+                    priority={true}
                     class="rounded-lg object-cover w-full h-full"/>
                 <Image 
                     src={photo3} 
                     widths={[200, 400, 800]}
                     sizes="(max-width: 768px) 50vw, 25vw"
                     alt="Sofa area" 
+                    priority={true}
                     class="rounded-lg object-cover w-full h-full"/>
                 <div class="relative">
                     <Image 
                         src={photo4} 
                         widths={[200, 400, 800]}
                         sizes="(max-width: 768px) 50vw, 25vw"
-                        alt="Dining and Sofa" 
+                        alt="Dining and Sofa"
+                        priority={true} 
                         class="rounded-lg object-cover w-full h-full" />
                     <div class="absolute inset-0 bg-slate-700/50 flex items-center justify-center rounded-lg">
                         <button @click="openModal(0)" class="btn">Show all photos</button>
@@ -96,7 +121,13 @@ const imagePaths = await Promise.all(
             <div class="flex items-center justify-center h-full">
                 <button @click="prevImage()" class="absolute left-0 ml-4 text-white text-3xl p-2 bg-black bg-opacity-50 rounded-full">&#10094;</button>
                 <template x-if="images.length > 0">
-                    <img :src="images[currentIndex]" alt="Full-size view" class="max-h-full max-w-full object-contain" />
+                    <img 
+                        :src="images[currentIndex].src" 
+                        :srcset="images[currentIndex].srcset"
+                        :sizes="images[currentIndex].sizes"
+                        alt="Full-size view" 
+                        class="max-h-full max-w-full object-contain" 
+                    />
                 </template>
                 <button @click="nextImage()" class="absolute right-0 mr-4 text-white text-3xl p-2 bg-black bg-opacity-50 rounded-full">&#10095;</button>
             </div>
