@@ -1,7 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import {Content as AboutUs} from '../components/contact/about_us.md'
-import { Mail, PhoneCall } from '@lucide/astro';
+import { Mail, PhoneCall, Languages } from '@lucide/astro';
 ---
 
 <Layout>
@@ -9,7 +9,7 @@ import { Mail, PhoneCall } from '@lucide/astro';
     <div>
       <h1>Your Hosts</h1>
       <div class="space-y-4">
-        <div class="grid grid-cols-2">
+        <div class="grid grid-cols-1 md:grid-cols-2 space-y-2">
           <div class="flex items-center space-x-2">
             <PhoneCall />
             <a href="tel:+35679416569">+356 79416569</a>
@@ -18,6 +18,9 @@ import { Mail, PhoneCall } from '@lucide/astro';
             <Mail />
             <a target="_blank" href="mailto:info@seaviewapartmentxlendi.com">info@seaviewapartmentxlendi.com</a>
           </div>
+        </div>
+        <div class="flex space-x-2">
+          <Languages /> <span>English, Maltese, Italian</span>
         </div>
         <AboutUs />
       </div>

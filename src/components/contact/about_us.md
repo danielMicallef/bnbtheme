@@ -11,9 +11,3 @@ Thank you again, and we look forward to welcoming you to Gozo!
 All the best,
 
 _Rebecca & Daniel_
-
-### Languages
-
- - English
- - Maltese
- - Italian

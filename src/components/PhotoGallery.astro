@@ -1,10 +1,10 @@
 ---
 import { Image } from "astro:assets";
-import mainPhoto from '../assets/images/gallery_a.jpg';
-import photo1 from '../assets/images/gallery_view.jpg';
-import photo2 from '../assets/images/kitchen.JPG';
-import photo3 from '../assets/images/sofa_area.JPG';
-import photo4 from '../assets/images/dining_sofa.JPG';
+import mainPhoto from '../assets/images/gallery_a.webp';
+import photo1 from '../assets/images/gallery_view.webp';
+import photo2 from '../assets/images/kitchen.webp';
+import photo3 from '../assets/images/sofa_area.webp';
+import photo4 from '../assets/images/dining_sofa.webp';
 
 const allImages = await import.meta.glob<{ default: ImageMetadata }>('../assets/images/*.{jpeg,jpg,png,gif,JPG}');
 const imagePaths = await Promise.all(
