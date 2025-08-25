@@ -2,6 +2,12 @@
 import "../assets/app.css";
 import Calendar from "../components/Calendar.astro";
 import { Ellipsis } from "@lucide/astro";
+
+export interface Props {
+	description?: string;
+}
+
+const { description = 'Seaview apartment in Xlendi, Gozo available for your next getaway. Sleeps up to 6, fully-equipped kitchen, close to the beach, restaurants and bars.' } = Astro.props;
 ---
 
 <!doctype html>
@@ -9,6 +15,7 @@ import { Ellipsis } from "@lucide/astro";
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />
+		<meta name="description" content={description} />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
 		<title>{import.meta.env.PUBLIC_SITE_NAME}</title>
@@ -24,7 +31,7 @@ import { Ellipsis } from "@lucide/astro";
 			<div class="navbar-end">
 				<li class="hidden"><Calendar /> </li>
 				<ul class="menu menu-horizontal px-1 gap-x-3">
-					<li class="hidden sm:block"><a href="/about" class="btn btn-ghost">About</a></li>
+					<li class="hidden sm:block"><a href="/about" class="btn btn-ghost">About the Property</a></li>
 					<li class="hidden sm:block"><a href="/contact" class="btn btn-ghost">Your Hosts</a></li>
 					
 					<div class="dropdown dropdown-end sm:hidden">
