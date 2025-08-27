@@ -3,18 +3,43 @@ import BookNow from '../components/BookNow.astro';
 import hostAvatar from '../assets/hosts/primary_host.webp';
 import secondaryHostAvatar from '../assets/hosts/secondary_host.webp';
 import { Image } from 'astro:assets';
-import { Coffee, Sun, Lock } from '@lucide/astro';
+import { Coffee, Sun, Lock, Star, StarHalf } from '@lucide/astro';
+
+const airbnbRating = 4.87;
+const bookingRating = 9.4;
+
+const renderStars = (rating: number, maxRating: number = 5) => {
+    const normalizedRating = (rating / maxRating) * 5;
+    const fullStars = Math.floor(normalizedRating);
+    const halfStar = normalizedRating % 1 >= 0.5 ? 1 : 0;
+    const emptyStars = 5 - fullStars - halfStar;
+    return { fullStars, halfStar, emptyStars };
+};
+
+const airbnbStars = renderStars(airbnbRating);
+const bookingStars = renderStars(bookingRating, 10);
+const starSize = 15;
 ---
 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
     <div class="p-4 ">
         <h2 class="text-2xl font-bold">Seaview 2-Bedroom Apartment in Xlendi</h2>
-        <div class="flex items-center mt-2">
-            <span class="text-yellow-500">★★★★☆ 4.87</span>
+        <div class="flex items-center mt-2 rounded-lg hover:bg-base-200 p-1">
+            <span class="text-yellow-500 flex items-center">
+                {Array(airbnbStars.fullStars).fill(0).map(() => <Star class="inline-block" size={starSize} fill="currentColor" />)}
+                {airbnbStars.halfStar === 1 && <StarHalf class="inline-block" size={starSize} fill="currentColor" />}
+                {Array(airbnbStars.emptyStars).fill(0).map(() => <Star class="inline-block" size={starSize} />)}
+                <span class="ml-2">{airbnbRating}</span>
+            </span>
             <a target="_blank" href="https://www.airbnb.com/rooms/559907383709411950?guests=1&adults=1&s=67&unique_share_id=eda56810-3bd7-490d-a60a-804b70a21d5f" class="ml-2 text-gray-600 italic">(30 reviews on Airbnb)</a>
         </div>
 
-        <div class="flex items-center mt-2">
-            <span class="text-yellow-500">★★★★☆ 9.4</span>
+        <div class="flex items-center mt-2 rounded-lg hover:bg-base-200 p-1">
+            <span class="text-yellow-500 flex items-center">
+                {Array(bookingStars.fullStars).fill(0).map(() => <Star class="inline-block" size={starSize} fill="currentColor" />)}
+                {bookingStars.halfStar === 1 && <StarHalf class="inline-block" size={starSize} fill="currentColor" />}
+                {Array(bookingStars.emptyStars).fill(0).map(() => <Star class="inline-block" size={starSize} />)}
+                <span class="ml-2">{bookingRating}</span>
+            </span>
             <a target="_blank" href="https://www.booking.com/hotel/mt/seaview-2-bedroom-apartment-in-xlendi.html" class="ml-2 text-gray-600 italic">(39 reviews on Booking.com)</a>
         </div>
 
