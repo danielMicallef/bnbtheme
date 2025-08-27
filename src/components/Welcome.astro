@@ -22,14 +22,14 @@ import { Coffee, Sun, Lock } from '@lucide/astro';
         <p class="text-gray-600">2 bedrooms · 4 beds · 2 baths</p>
         <div x-data class="grid grid-cols-2 mt-4">
             <div x-on:click="window.location.href='/contact'" class="flex items-center cursor-pointer p-2 rounded-lg hover:bg-base-200">
-                <Image src={hostAvatar} alt="Host Avatar" class="w-12 h-12 rounded-full mr-4 object-cover" />
+                <Image src={hostAvatar} alt="Host Avatar" class="w-12 h-12 rounded-full mr-4 object-cover" widths={[48, 96, 144]} sizes="48px" />
                 <div>
                     <h3 class="font-semibold">Hosted by Daniel</h3>
                     <p class="text-gray-600">3 years hosting</p>
                 </div>
             </div>
             <div x-data x-on:click="window.location.href='/contact'" class="flex items-center cursor-pointer p-2 rounded-lg hover:bg-base-200">
-                <Image src={secondaryHostAvatar} alt="Host Avatar" class="w-12 h-12 rounded-full mr-4 object-cover" />
+                <Image src={secondaryHostAvatar} alt="Host Avatar" class="w-12 h-12 rounded-full mr-4 object-cover" widths={[48, 96, 144]} sizes="48px" />
                 <div>
                     <h3 class="font-semibold">Co-Hosted by Rebecca</h3>
                     <p class="text-gray-600">3 years hosting</p>

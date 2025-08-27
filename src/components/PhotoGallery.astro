@@ -65,8 +65,8 @@ x-init="() => {
             <div class="col-span-1 md:col-span-1">
                 <Image 
                     src={mainPhoto} 
-                    widths={[400, 800, 1200, 1600]}
-                    sizes="(max-width: 768px) 100vw, 50vw"
+                    widths={[400, 600, 800, 1000, 1200, 1600]}
+                    sizes="(max-width: 768px) calc(100vw - 2rem), 50vw"
                     alt="Main view of the apartment"
                     priority={true} 
                     class="rounded-lg object-cover w-full h-full" />

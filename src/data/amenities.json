@@ -12,9 +12,9 @@
     "category": "Bedroom and laundry",
     "items": [
       "Free washer – In unit",
-      "EssentialsTowels, bed sheets, soap, and toilet paper",
+      "Essentials: Towels, bed sheets, soap, and toilet paper",
       "Hangers",
-      "Bed linensEgyptian cotton linens",
+      "Bed linens: Egyptian cotton linens",
       "Extra pillows and blankets",
       "Room-darkening shades",
       "Iron",
@@ -34,7 +34,7 @@
   },
   {
     "category": "Heating and cooling",
-    "items": ["Airconditioning (pay per use basis - approx €2/night)", "Radiant heating"]
+    "items": ["Air conditioning (pay per use basis - approx €2/night)", "Radiant heating"]
   },
   {
     "category": "Home safety",
@@ -47,11 +47,11 @@
   {
     "category": "Kitchen and dining",
     "items": [
-      "KitchenSpace where guests can cook their own meals",
+      "Kitchen: Space where guests can cook their own meals",
       "Samsung refrigerator",
       "Microwave",
-      "Cooking basicsPots and pans, oil, salt and pepper",
-      "Dishes and silverwareBowls, chopsticks, plates, cups, etc.",
+      "Cooking basics: Pots and pans, oil, salt and pepper",
+      "Dishes and silverware: Bowls, chopsticks, plates, cups, etc.",
       "Freezer",
       "Stainless steel gas stove",
       "Stainless steel oven",
@@ -65,7 +65,7 @@
   },
   {
     "category": "Location features",
-    "items": ["Shared beach access – BeachfrontGuests can enjoy a nearby beach"]
+    "items": ["Shared beach access – Beachfront: Guests can enjoy a nearby beach"]
   },
   {
     "category": "Outdoor",
@@ -78,9 +78,9 @@
   {
     "category": "Services",
     "items": [
-      "Pets allowedAssistance animals are always allowed",
-      "Luggage dropoff allowedFor guests' convenience when they have early arrival or late departure",
-      "Long term stays allowedAllow stay for 28 days or more",
+      "Pets allowed subject to approval. Assistance animals are always welcome.",
+      "Luggage dropoff allowed: For guests' convenience when they have early arrival or late departure",
+      "Long term stays allowed: Allow stay for 28 days or more",
       "Self check-in",
       "Lockbox",
       "Cleaning available during stay"
