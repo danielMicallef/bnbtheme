@@ -21,7 +21,7 @@ Check out is prior to 10am. We do our best to accommodate late check-outs, so pl
 
 ### Other
 
-**Cancellation Policy**: Cancel up to 7 days before to get a 50% refund (minus service fees)
+**Cancellation Policy**: Cancel up to 7 days before to get a full refund (when booking directly)
 
 **House Rules**
 - No smoking 

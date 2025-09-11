@@ -1,12 +1,23 @@
 ---
 import BookNow from '../components/BookNow.astro';
-import hostAvatar from '../assets/hosts/primary_host.webp';
-import secondaryHostAvatar from '../assets/hosts/secondary_host.webp';
 import { Image } from 'astro:assets';
 import { Coffee, Sun, Lock, Star, StarHalf } from '@lucide/astro';
+import property from '../data/property.json' assert { type: 'json' };
+import primaryHostAvatar from '../assets/hosts/primary_host.webp';
+import secondaryHostAvatar from '../assets/hosts/secondary_host.webp';
 
-const airbnbRating = 4.87;
-const bookingRating = 9.4;
+const hostAvatars = {
+    primary_host: primaryHostAvatar,
+    secondary_host: secondaryHostAvatar
+};
+
+type HostAvatarKey = keyof typeof hostAvatars;
+
+interface Rating {
+    rating: number;
+    maxRating: number;
+    link: string;
+}
 
 const renderStars = (rating: number, maxRating: number = 5) => {
     const normalizedRating = (rating / maxRating) * 5;
@@ -16,50 +27,41 @@ const renderStars = (rating: number, maxRating: number = 5) => {
     return { fullStars, halfStar, emptyStars };
 };
 
-const airbnbStars = renderStars(airbnbRating);
-const bookingStars = renderStars(bookingRating, 10);
 const starSize = 15;
 ---
 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
     <div class="p-4 ">
-        <h2 class="text-2xl font-bold">Seaview 2-Bedroom Apartment in Xlendi</h2>
-        <div class="flex items-center mt-2 rounded-lg hover:bg-base-200 p-1">
-            <span class="text-yellow-500 flex items-center">
-                {Array(airbnbStars.fullStars).fill(0).map(() => <Star class="inline-block" size={starSize} fill="currentColor" />)}
-                {airbnbStars.halfStar === 1 && <StarHalf class="inline-block" size={starSize} fill="currentColor" />}
-                {Array(airbnbStars.emptyStars).fill(0).map(() => <Star class="inline-block" size={starSize} />)}
-                <span class="ml-2">{airbnbRating}</span>
-            </span>
-            <a target="_blank" href="https://www.airbnb.com/rooms/559907383709411950?guests=1&adults=1&s=67&unique_share_id=eda56810-3bd7-490d-a60a-804b70a21d5f" class="ml-2 text-gray-600 italic">(30 reviews on Airbnb)</a>
-        </div>
+        <h2 class="text-2xl font-bold">{property.subtitle}</h2>
+        {Object.entries(property.ratings).map(([platform, ratingInfo]) => {
+            const rating = ratingInfo as Rating;
+            const stars = renderStars(rating.rating, rating.maxRating);
+            return (
+                <div class="flex items-center mt-2 rounded-lg hover:bg-base-200 p-1">
+                    <span class="text-yellow-500 flex items-center">
+                        {Array(stars.fullStars).fill(0).map(() => <Star class="inline-block" size={starSize} fill="currentColor" />)}
+                        {stars.halfStar === 1 && <StarHalf class="inline-block" size={starSize} fill="currentColor" />}
+                        {Array(stars.emptyStars).fill(0).map(() => <Star class="inline-block" size={starSize} />)}
+                        <span class="ml-2">{rating.rating}</span>
+                    </span>
+                    <a target="_blank" href={rating.link} class="ml-2 text-gray-600 italic">
+                        (reviews on {platform.charAt(0).toUpperCase() + platform.slice(1)})
+                    </a>
+                </div>
+            )
+        })}
 
-        <div class="flex items-center mt-2 rounded-lg hover:bg-base-200 p-1">
-            <span class="text-yellow-500 flex items-center">
-                {Array(bookingStars.fullStars).fill(0).map(() => <Star class="inline-block" size={starSize} fill="currentColor" />)}
-                {bookingStars.halfStar === 1 && <StarHalf class="inline-block" size={starSize} fill="currentColor" />}
-                {Array(bookingStars.emptyStars).fill(0).map(() => <Star class="inline-block" size={starSize} />)}
-                <span class="ml-2">{bookingRating}</span>
-            </span>
-            <a target="_blank" href="https://www.booking.com/hotel/mt/seaview-2-bedroom-apartment-in-xlendi.html" class="ml-2 text-gray-600 italic">(39 reviews on Booking.com)</a>
-        </div>
-
-        <p class="text-gray-600 mt-2">Entire rental unit in Munxar, Malta</p>
-        <p class="text-gray-600">2 bedrooms · 4 beds · 2 baths</p>
+        <p class="text-gray-600 mt-2">{property.description}</p>
+        <p class="text-gray-600">{property.details.join(' · ')}</p>
         <div x-data class="grid grid-cols-2 mt-4">
-            <div x-on:click="window.location.href='/contact'" class="flex items-center cursor-pointer p-2 rounded-lg hover:bg-base-200">
-                <Image src={hostAvatar} alt="Host Avatar" class="w-12 h-12 rounded-full mr-4 object-cover" widths={[48, 96, 144]} sizes="48px" />
-                <div>
-                    <h3 class="font-semibold">Hosted by Daniel</h3>
-                    <p class="text-gray-600">3 years hosting</p>
+            {property.hosts.map(host => (
+                <div x-on:click="window.location.href='/contact'" class="flex items-center cursor-pointer p-2 rounded-lg hover:bg-base-200">
+                    <Image src={hostAvatars[host.avatar as HostAvatarKey]} alt={`${host.name}'s Avatar`} class="w-12 h-12 rounded-full mr-4 object-cover" widths={[48, 96, 144]} sizes="48px" />
+                    <div>
+                        <h3 class="font-semibold">{host.role} {host.name}</h3>
+                        <p class="text-gray-600">{host.hosting_since}</p>
+                    </div>
                 </div>
-            </div>
-            <div x-data x-on:click="window.location.href='/contact'" class="flex items-center cursor-pointer p-2 rounded-lg hover:bg-base-200">
-                <Image src={secondaryHostAvatar} alt="Host Avatar" class="w-12 h-12 rounded-full mr-4 object-cover" widths={[48, 96, 144]} sizes="48px" />
-                <div>
-                    <h3 class="font-semibold">Co-Hosted by Rebecca</h3>
-                    <p class="text-gray-600">3 years hosting</p>
-                </div>
-            </div>
+            ))}
         </div>
 
         <div class="mt-4 space-y-2">

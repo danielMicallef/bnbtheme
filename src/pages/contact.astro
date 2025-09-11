@@ -1,7 +1,9 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import {Content as AboutUs} from '../components/contact/about_us.md'
+import {Content as AboutUs} from '../components/contact/about_us.md';
+import {Content as BookDirectly} from '../components/contact/book_directly.md';
 import { Mail, PhoneCall, Languages } from '@lucide/astro';
+import property from '../data/property.json'
 ---
 
 <Layout>
@@ -12,17 +14,18 @@ import { Mail, PhoneCall, Languages } from '@lucide/astro';
         <div class="grid grid-cols-1 md:grid-cols-2 space-y-2">
           <div class="flex items-center space-x-2">
             <PhoneCall />
-            <a href="tel:+35679416569">+356 79416569</a>
+            <a href={`tel:${property.contact.phone}`}>{property.contact.phone}</a>
           </div>
           <div class="flex items-center space-x-2">
             <Mail />
-            <a target="_blank" href="mailto:info@seaviewapartmentxlendi.com">info@seaviewapartmentxlendi.com</a>
+            <a target="_blank" href={`mailto:${property.contact.email}`}>{property.contact.email}</a>
           </div>
         </div>
         <div class="flex space-x-2">
-          <Languages /> <span>English, Maltese, Italian</span>
+          <Languages /> <span>{property.languages.join(', ')}</span>
         </div>
         <AboutUs class="mt-4"/>
+        <BookDirectly class="mt-4"/>
       </div>
     </div>
   </div>

@@ -1,0 +1,3 @@
+## Why Book Directly
+
+You can always book the apartment with confidence when making your hotel reservations on our website. We promise you won't find a better rate for our apartment on any other hotel reseravations webiste, when considering the same dates and the same room types. If you do, simply let us know and we will happily provide the offer with the lowest rate available and we will immediately correct the inconsistency.

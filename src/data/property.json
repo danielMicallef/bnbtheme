@@ -1,0 +1,37 @@
+{
+    "title": "Sunset Seaview Apartment",
+    "subtitle": "Seaview 2-Bedroom Apartment in Xlendi",
+    "description": "Entire rental unit in Munxar, Malta",
+    "details": ["2 bedrooms", "4 beds", "2 baths"],
+    "location": {
+        "name": "Xlendi, Gozo",
+        "coordinates": [36.02777962096894, 14.217282968662833],
+        "address": "4, Palm Court, Triq it-Torri, Xlendi",
+        "googleBusiness": "https://share.google/A87p8JSeVrsi8OeLi"
+    },
+
+    "amenities": [],
+    "ratings": {
+        "airbnb": {"rating": 4.87, "maxRating": 5, "link": "https://www.airbnb.com/rooms/559907383709411950?guests=1&adults=1&s=67&unique_share_id=eda56810-3bd7-490d-a60a-804b70a21d5f"},
+        "booking": {"rating": 9.4, "maxRating": 10, "link": "https://www.booking.com/hotel/mt/seaview-2-bedroom-apartment-in-xlendi.html"}
+    },
+    "contact": {
+        "phone": "+356 79416569",
+        "email": "info@seaviewapartmentxlendi.com"
+    },
+    "languages": ["English", "Maltese", "Italian"],
+    "hosts": [
+        {
+            "name": "Daniel",
+            "role": "Hosted by",
+            "hosting_since": "3 years hosting",
+            "avatar": "primary_host"
+        },
+        {
+            "name": "Rebecca",
+            "role": "Co-Hosted by",
+            "hosting_since": "3 years hosting",
+            "avatar": "secondary_host"
+        }
+    ]
+}

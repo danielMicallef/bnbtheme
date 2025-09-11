@@ -1,22 +1,20 @@
 ---
 import 'leaflet/dist/leaflet.css';
+import property from '../data/property.json';
+
+const { coordinates, address } = property.location;
 ---
 
-<div id="map" style="height: 500px;"></div>
+<div id="map" style="height: 500px;" data-coordinates={JSON.stringify(coordinates)} data-address={address}></div>
 
 <script>
-  import L from 'leaflet';
-  const map = L.map('map').setView([36.02777962096894, 14.217282968662833], 13);
-
-  // Add OpenStreetMap tile layer
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-  }).addTo(map);
-
-  // Add marker at the specified coordinates
-  L.marker([36.02777962096894, 14.217282968662833]).addTo(map)
-    .bindPopup('4, Palm Court, Triq it-Torri, Xlendi')
-    .openPopup();
+  import { initMap } from '../scripts/map.js';
+  const mapElement = document.getElementById('map');
+  if (mapElement && mapElement.dataset.coordinates && mapElement.dataset.address) {
+    const coordinates = JSON.parse(mapElement.dataset.coordinates);
+    const address = mapElement.dataset.address;
+    initMap(coordinates, address);
+  }
 </script>
 
 <style>
