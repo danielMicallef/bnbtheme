@@ -1,7 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import {Content as AboutUs} from '../components/contact/about_us.md';
-import {Content as BookDirectly} from '../components/contact/book_directly.md';
 import { Mail, PhoneCall, Languages } from '@lucide/astro';
 import property from '../data/property.json'
 ---
@@ -24,8 +23,13 @@ import property from '../data/property.json'
         <div class="flex space-x-2">
           <Languages /> <span>{property.languages.join(', ')}</span>
         </div>
-        <AboutUs class="mt-4"/>
-        <BookDirectly class="mt-4"/>
+        <div class="card bg-white shadow-xl mt-4">
+          <div class="card-body items-center">
+            <div class="italic">
+              <AboutUs/>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
