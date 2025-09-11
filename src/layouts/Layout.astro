@@ -2,7 +2,7 @@
 import "../assets/app.css";
 import Calendar from "../components/Calendar.astro";
 import { Ellipsis } from "@lucide/astro";
-import GoogleAnalytics from "../components/GoogleAnalytics.astro";
+// import GoogleAnalytics from "../components/GoogleAnalytics.astro";
 
 export interface Props {
 	description?: string;
@@ -24,7 +24,17 @@ const { description = 'Seaview apartment in Xlendi, Gozo available for your next
 		 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
 		integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
 		crossorigin=""/>
-		<GoogleAnalytics />
+		<!-- <GoogleAnalytics /> -->
+
+		<script async src="https://www.googletagmanager.com/gtag/js?id=G-RLBBN5NRKP"></script>
+		<script>
+			window.dataLayer = window.dataLayer || [];
+			function gtag(){dataLayer.push(arguments);}
+			gtag('js', new Date());
+
+			gtag('config', 'G-RLBBN5NRKP');
+		</script>
+
 	</head>
 
 	<body class="flex flex-col min-h-screen">
