@@ -1,0 +1,55 @@
+---
+import xlendiBayImage from '../../assets/images/places/xlendibay.webp';
+import cittadellaImage from '../../assets/images/places/citadella.webp';
+import sanapCliffsImage from '../../assets/images/places/sanap-cliffs.webp';
+import taPinuImage from '../../assets/images/places/tapinu.webp';
+import ghasriImage from '../../assets/images/places/ghasri.webp';
+
+const thingsToDo = [
+  {
+    title: 'Xlendi Bay',
+    description: 'The bay is a popular spot for locals and tourists. The area is best known for its beautiful sunset, excellent restaurants and diving options. Make sure to kick back and relax at one of the restaurants, or our very own balcony while watching the sunset, it\'s our favourite thing to do when we\'re here!',
+    imageUrl: xlendiBayImage,
+    altText: 'A beautiful sunset over Xlendi Bay'
+  },
+  {
+    title: 'Cittadella',
+    description: 'Visit the beautiful medieval fortified town, known as Cittadella in Victoria, Rabat. This town has been completely renovated to restore its former glory. We recommended visiting twice (day & night) to experience its 360 views and artisanal shops and the beautiful evening lights.',
+    imageUrl: cittadellaImage,
+    altText: 'The fortified walls of Cittadella at night'
+  },
+  {
+    title: 'Sanap Cliffs Walk',
+    description: 'A popular walk, just round the corner from our home, takes you to the majestic Sanap Cliffs & Xlendi Tower. Find the detailed route on the last page. We\'ve done it ourselves lots of times, so let us know if you have any questions.',
+    imageUrl: sanapCliffsImage,
+    altText: 'A scenic view from Sanap Cliffs'
+  },
+  {
+    title: 'Ta\' Pinu Basilica',
+    description: 'If you\'re a fan of art & culture, don\'t miss this beautiful Roman Catholic Basilica in Gharb. It has lots of sculptures and carved stone work, an architectural masterpiece.',
+    imageUrl: taPinuImage,
+    altText: 'The grand facade of Ta\' Pinu Basilica'
+  },
+  {
+    title: 'Wied il-Ghasri',
+    description: 'A tiny pebbly beach, wedged between cliffs, promises a beautiful swim. TIP: go early in the morning before it becomes crowded with divers, if you\'re lucky enough you\'ll get the bay entirely for yourself.',
+    imageUrl: ghasriImage,
+    altText: 'The secluded Wied il-Ghasri valley'
+  }
+];
+---
+
+<section class="space-y-12">
+  <h2 class="text-3xl font-bold">Things to do</h2>
+  {thingsToDo.map((item, index) => (
+    <div class={`flex flex-col md:flex-row gap-8 items-center ${index % 2 !== 0 ? 'md:flex-row-reverse' : ''}`}>
+      <div class="md:w-1/2">
+        <h3 class="text-2xl font-bold mb-4">{item.title}</h3>
+        <p>{item.description}</p>
+      </div>
+      <div class="md:w-1/2">
+        <img src={item.imageUrl.src} alt={item.altText} class="rounded-lg shadow-lg w-full h-auto" />
+      </div>
+    </div>
+  ))}
+</section>

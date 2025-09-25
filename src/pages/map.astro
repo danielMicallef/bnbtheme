@@ -1,0 +1,16 @@
+---
+import Layout from '../layouts/Layout.astro';
+import mapImage from '../assets/images/other/malta-gozo-tourist-map.png';
+---
+
+<Layout title="Tourist Map of Malta and Gozo">
+  <main class="container mx-auto px-4 py-8">
+    <h1 class="text-3xl font-bold text-center mb-8">Tourist Map of Malta & Gozo</h1>
+    <div class="flex justify-center">
+      <img src={mapImage.src} alt="Tourist map of Malta and Gozo" class="max-w-full h-auto rounded-lg shadow-lg" />
+    </div>
+    <p class="text-center mt-4 text-sm text-gray-500">
+      Map created by <a href="https://www.visitmalta.com/en/" target="_blank" rel="noopener noreferrer" class="text-blue-500 hover:underline">VisitMalta</a> for tourists.
+    </p>
+  </main>
+</Layout>

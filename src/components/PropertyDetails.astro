@@ -1,6 +1,7 @@
 ---
 import amenities from "../data/amenities.json";
 import PropertyMap from "./PropertyMap.astro";
+import GettingToXlendi from '../components/planning/GettingToXlendi.md';
 import property from "../data/property.json";
 const totalAmenities = amenities.reduce(
   (acc, category) => acc + category.items.length,
@@ -70,4 +71,9 @@ const totalAmenities = amenities.reduce(
   <h3 class="text-xl font-semibold">Where you'll be</h3>
   <p>Find us on Google: <a href={property.location.googleBusiness} target="_blank" class="text-blue-500 hover:underline">{property.subtitle}</a></p>
   <PropertyMap />
+</div>
+
+<div class="p-6 border-b border-gray-200">
+  <h3 class="text-xl font-semibold">Getting There</h3>
+  <GettingToXlendi />
 </div>

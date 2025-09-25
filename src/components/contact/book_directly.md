@@ -1,20 +1,14 @@
-## Unlock Exclusive Benefits by Booking Directly with Us!
+## Book Directly and Save
 
-When you book your stay directly on our website, you're not just getting an apartment; you're unlocking a premium experience with exclusive perks you won't find anywhere else.
+Enjoy our best rates when you book your stay directly through our website. We guarantee you won't find a better price anywhere else.
 
-### Enjoy Unbeatable Value & Flexibility
-- **Best Price Guarantee**: Find a better price on another platform? We'll beat it by 10%!
-- **No Hidden Fees**: The price you see is the price you pay. No surprises.
-- **Flexible Cancellation**: Enjoy peace of mind with free cancellation and a full refund up to 7 days before your check-in.
+### Our Best Price Guarantee
+If you find a lower price for our apartment on another website, we will not only match it but also give you an additional 10% discount.
 
-### Experience a Personal Touch
-- **Direct Host Communication**: Get personalized assistance and local tips straight from your hosts, without any intermediaries.
-- **Tailored Comfort**: Request an early check-in at 2:00 p.m. or a late check-out at 11:00 a.m. (subject to availability), and we'll do our best to accommodate you.
+### Additional Benefits
+- **No Hidden Fees**: The price you see is the price you pay.
+- **Direct Communication**: Speak directly with us for any special requests or local tips.
+- **Flexible Cancellation**: Free cancellation up to 7 days before your check-in.
+- **Personalized Service**: Request an early check-in or late check-out (subject to availability).
 
-### Discover Our Added Values
-- **Prime Location**: Our property is nestled in a quiet, green area just a stone's throw from the beach.
-- **Modern Comforts**: Enjoy a 100% smoke-free environment (balcony smoking permitted), complimentary high-speed WiFi, and a fully equipped kitchen.
-- **Exclusive Transport Rates**: Take advantage of special fares for taxis and airport transfers.
-- **A Warm Welcome**: Start your stay right with complimentary tea and coffee.
-
-Book directly with us for a superior experience and the best value guaranteed.
+For a seamless booking experience and the best value, book directly with us.
