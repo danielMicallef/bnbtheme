@@ -9,7 +9,18 @@
         "address": "4, Palm Court, Triq it-Torri, Xlendi",
         "googleBusiness": "https://share.google/A87p8JSeVrsi8OeLi"
     },
-
+    "bedrooms": [
+        {
+            "name": "Bedroom 1",
+            "description": "1 queen bed, 2 sofa beds",
+            "image": "https://a0.muscache.com/im/pictures/miso/Hosting-559907383709411950/original/ad8e3716-2ab7-4509-b598-859c32b0f87d.jpeg?im_w=1200"
+        },
+        {
+            "name": "Bedroom 2",
+            "description": "1 double bed or 2 single beds",
+            "image": "https://a0.muscache.com/im/pictures/miso/Hosting-559907383709411950/original/fc2f155c-b9d0-43ea-aa91-21c2d1636fc9.jpeg?im_w=720"
+        }
+    ],
     "amenities": [],
     "ratings": {
         "airbnb": {"rating": 4.87, "maxRating": 5, "link": "https://www.airbnb.com/rooms/559907383709411950?guests=1&adults=1&s=67&unique_share_id=eda56810-3bd7-490d-a60a-804b70a21d5f"},

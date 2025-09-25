@@ -5,6 +5,7 @@ import { Coffee, Sun, Lock, Star, StarHalf } from '@lucide/astro';
 import property from '../data/property.json' assert { type: 'json' };
 import primaryHostAvatar from '../assets/hosts/primary_host.webp';
 import secondaryHostAvatar from '../assets/hosts/secondary_host.webp';
+import { Content as AboutYourStay } from '../components/contact/about_your_stay.md';
 
 const hostAvatars = {
     primary_host: primaryHostAvatar,
@@ -29,7 +30,9 @@ const renderStars = (rating: number, maxRating: number = 5) => {
 
 const starSize = 15;
 ---
-<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<!-- <div class="grid grid-cols-1 md:grid-cols-2 gap-8"> -->
+
+<div class="grid grid-cols-1 gap-8">
     <div class="p-4 ">
         <h2 class="text-2xl font-bold">{property.subtitle}</h2>
         {Object.entries(property.ratings).map(([platform, ratingInfo]) => {
@@ -79,10 +82,21 @@ const starSize = 15;
             <p class="text-gray-600 mt-2">
             A charming sea-view apartment featuring a fully-equipped kitchen and two air-conditioned bedrooms (sleeping 4, with a sofa bed that converts to a double bed for a total of 6 guests). Just a 2-minute walk from Xlendi beach, surrounded by a variety of restaurants, bars, and coffee shops, and near a grocery store. The property includes a spacious balcony with stunning sunset views, perfect for a romantic dinner. Complimentary Wi-Fi is included.
             </p>
-            <a href="/about" class="btn btn-sm btn-outline mt-3">Read more</a>
+            <button class="btn btn-sm btn-outline mt-3" onclick="about_modal.showModal()">Read more</button>
         </div>
     </div>
-    <div class="p-4">
+    <!-- <div class="p-4">
     <BookNow />
-    </div>
+    </div> -->
 </div>
+
+<dialog id="about_modal" class="modal modal-bottom sm:modal-middle">
+  <div class="modal-box">
+    <AboutYourStay />
+    <div class="modal-action">
+      <form method="dialog">
+        <button class="btn">Close</button>
+      </form>
+    </div>
+  </div>
+</dialog>
