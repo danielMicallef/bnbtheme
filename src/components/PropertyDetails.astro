@@ -4,7 +4,7 @@ import PropertyMap from "./PropertyMap.astro";
 import GettingToXlendi from '../components/planning/GettingToXlendi.md';
 import property from "../data/property.json";
 const totalAmenities = amenities.categories.reduce(
-  (acc, category) => acc + category.items.length,
+  (acc, category) => category.unavailable ? acc: acc + category.items.length,
   0
 );
 ---
@@ -39,10 +39,41 @@ const totalAmenities = amenities.categories.reduce(
       ))
     }
   </div>
-  <a href="/about#amenities" class="btn btn-sm btn-outline mt-2"
-    >Show all {totalAmenities} amenities</a
+  <button class="btn btn-sm btn-outline mt-2" onclick="amenities_modal.showModal()"
+    >Show all {totalAmenities} amenities</button
   >
 </div>
+
+<dialog id="amenities_modal" class="modal modal-bottom sm:modal-middle">
+  <div class="modal-box">
+    <h2 class="text-2xl font-bold mb-4">What this place offers</h2>
+    <div>
+      {
+        amenities.categories.map((category) => (
+          <div>
+            <h3 class="text-xl font-semibold mb-2 text-gray-800">
+              {category.category}
+            </h3>
+            <ul class="list-disc list-inside text-gray-600">
+              {category.items.map((item) => (
+                <div class="flex items-center">
+                  <span class={category.unavailable ? "line-through" : ""}>
+                    <span class="text-blue-500 mr-2">✔</span> {item}
+                  </span>
+                </div>
+              ))}
+            </ul>
+          </div>
+        ))
+      }
+    </div>
+    <div class="modal-action">
+      <form method="dialog">
+        <button class="btn">Close</button>
+      </form>
+    </div>
+  </div>
+</dialog>
 
 <div class="p-6 border-b border-gray-200">
   <h3 class="text-xl font-semibold">Where you'll be</h3>
