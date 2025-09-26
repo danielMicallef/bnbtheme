@@ -44,5 +44,12 @@
             "hosting_since": "3 years hosting",
             "avatar": "secondary_host"
         }
+    ],
+    "photos": [
+        { "src": "01_gallery_a.webp", "alt": "Main view of the apartment", "main": true },
+        { "src": "02_gallery_view.webp", "alt": "Gallery view", "main": false },
+        { "src": "03_kitchen.webp", "alt": "Kitchen", "main": false },
+        { "src": "04_sofa_area.webp", "alt": "Sofa area", "main": false },
+        { "src": "07_dining_sofa.webp", "alt": "Dining and Sofa", "main": false }
     ]
 }
