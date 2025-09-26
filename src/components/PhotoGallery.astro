@@ -1,12 +1,10 @@
 ---
 import { Image, getImage } from "astro:assets";
-import propertyData from '../data/property.json';
-
-interface Photo {
-  src: string;
-  alt: string;
-  main: boolean;
-}
+import mainPhoto from '../assets/images/01_gallery_a.webp';
+import photo1 from '../assets/images/02_gallery_view.webp';
+import photo2 from '../assets/images/03_kitchen.webp';
+import photo3 from '../assets/images/04_sofa_area.webp';
+import photo4 from '../assets/images/07_dining_sofa.webp';
 
 // Find all image types, not just webp
 const allImageFiles = await import.meta.glob<{ default: ImageMetadata }>('../assets/images/*.{jpeg,jpg,png,gif,JPG,webp}');
@@ -29,31 +27,6 @@ const imagesData = await Promise.all(
     };
   })
 );
-
-// Find the main photo and other gallery photos from the JSON data
-const mainPhotoData = propertyData.photos.find((p: Photo) => p.main);
-const galleryPhotosData = propertyData.photos.filter((p: Photo) => !p.main).slice(0, 4); // Ensure we only take 4 for the grid
-
-// Function to find the imported image module by its filename
-const findImageModule = (filename: string) => {
-  const path = `../assets/images/${filename}`;
-  return allImageFiles[path];
-};
-
-// Get the image modules for the main and gallery photos
-const mainPhotoModule = mainPhotoData ? await findImageModule(mainPhotoData.src)() : null;
-const galleryPhotoModules = await Promise.all(
-  galleryPhotosData.map(async (photo: Photo) => {
-    const module = findImageModule(photo.src);
-    return module ? { ...photo, module: await module() } : null;
-  })
-);
-
-const mainPhoto = mainPhotoModule?.default;
-const photo1 = galleryPhotoModules[0]?.module.default;
-const photo2 = galleryPhotoModules[1]?.module.default;
-const photo3 = galleryPhotoModules[2]?.module.default;
-const photo4 = galleryPhotoModules[3]?.module.default;
 ---
 
 <div x-data={`{
@@ -90,48 +63,48 @@ x-init="() => {
         <!-- Main Gallery Grid -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
             <div class="col-span-1 md:col-span-1">
-                {mainPhoto && mainPhotoData && <Image 
+                <Image 
                     src={mainPhoto} 
                     widths={[400, 600, 800, 1000, 1200, 1600]}
                     sizes="(max-width: 768px) calc(100vw - 2rem), 50vw"
-                    alt={mainPhotoData.alt}
+                    alt="Main view of the apartment"
                     priority={true} 
-                    class="rounded-lg object-cover w-full h-full" />}
+                    class="rounded-lg object-cover w-full h-full" />
             </div>
             <div class="grid grid-cols-2 gap-2">
-                {photo1 && galleryPhotoModules[0] && <Image 
+                <Image 
                     src={photo1} 
                     widths={[200, 400, 800]}
                     sizes="(max-width: 768px) 50vw, 25vw"
-                    alt={galleryPhotoModules[0].alt}
+                    alt="Gallery view"
                     priority={true} 
-                    class="rounded-lg object-cover w-full h-full"/>}
-                {photo2 && galleryPhotoModules[1] && <Image 
+                    class="rounded-lg object-cover w-full h-full"/>
+                <Image 
                     src={photo2} 
                     widths={[200, 400, 800]}
                     sizes="(max-width: 768px) 50vw, 25vw"
-                    alt={galleryPhotoModules[1].alt} 
+                    alt="Kitchen" 
                     priority={true}
-                    class="rounded-lg object-cover w-full h-full"/>}
-                {photo3 && galleryPhotoModules[2] && <Image 
+                    class="rounded-lg object-cover w-full h-full"/>
+                <Image 
                     src={photo3} 
                     widths={[200, 400, 800]}
                     sizes="(max-width: 768px) 50vw, 25vw"
-                    alt={galleryPhotoModules[2].alt} 
+                    alt="Sofa area" 
                     priority={true}
-                    class="rounded-lg object-cover w-full h-full"/>}
-                {photo4 && galleryPhotoModules[3] && <div class="relative">
+                    class="rounded-lg object-cover w-full h-full"/>
+                <div class="relative">
                     <Image 
                         src={photo4} 
                         widths={[200, 400, 800]}
                         sizes="(max-width: 768px) 50vw, 25vw"
-                        alt={galleryPhotoModules[3].alt}
+                        alt="Dining and Sofa"
                         priority={true} 
                         class="rounded-lg object-cover w-full h-full" />
                     <div class="absolute inset-0 bg-slate-700/50 flex items-center justify-center rounded-lg">
                         <button @click="openModal(0)" class="btn">Show all photos</button>
                     </div>
-                </div>}
+                </div>
             </div>
         </div>
     </div>
