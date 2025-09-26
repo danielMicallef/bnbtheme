@@ -3,15 +3,43 @@ import "../assets/app.css";
 import Calendar from "../components/Calendar.astro";
 import { Waves, Ellipsis } from "@lucide/astro";
 import property from "../data/property.json";
+import { getImage } from "astro:assets";
 
 export interface Props {
 	title?: string;
 	description?: string;
 }
 
+interface Photo {
+  src: string;
+  alt: string;
+  main: boolean;
+}
+
 const { 
 	description = 'Seaview apartment in Xlendi, Gozo available for your next getaway. Sleeps up to 6, fully-equipped kitchen, close to the beach, restaurants and bars.' 
 } = Astro.props;
+
+// Find the main photo from the JSON data
+const mainPhotoData = property.photos.find((p: Photo) => p.main);
+
+// Dynamically import all images from the assets directory
+const allImages = await import.meta.glob<{ default: ImageMetadata }>('../assets/images/*.{jpeg,jpg,png,gif,JPG,webp}');
+
+let mainImage;
+if (mainPhotoData) {
+  const imagePath = `../assets/images/${mainPhotoData.src}`;
+  const imageImporter = allImages[imagePath];
+  if (imageImporter) {
+    const importedImage = await imageImporter();
+    // Generate an image optimized for social media cards (1200x630 is standard)
+    mainImage = await getImage({ src: importedImage.default, width: 1200, height: 630, format: 'jpg' });
+  }
+}
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+// Use the generated image URL, or a fallback if it doesn't exist
+const socialImageURL = mainImage ? new URL(mainImage.src, Astro.site) : new URL('/default-social-image.jpg', Astro.site);
 ---
 
 <!doctype html>
@@ -24,13 +52,27 @@ const {
 		<link rel="sitemap" href="/sitemap-index.xml" />
 		<meta name="generator" content={Astro.generator} />
 		<title>{property.title}</title>
+
+		<!-- Social Media Meta Tags -->
+		<meta property="og:title" content={property.title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:url" content={canonicalURL.href} />
+		<meta property="og:image" content={socialImageURL.href} />
+		<meta property="og:type" content="website" />
+		<meta property="og:site_name" content={property.title} />
+
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content={property.title} />
+		<meta name="twitter:description" content={description} />
+		<meta name="twitter:image" content={socialImageURL.href} />
+
 		<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
 		integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
 		crossorigin=""/>
 		<!-- <GoogleAnalytics /> -->
 
 		<script async src="https://www.googletagmanager.com/gtag/js?id=G-RLBBN5NRKP"></script>
-		<script>
+		<script is:inline>
 			window.dataLayer = window.dataLayer || [];
 			function gtag(){dataLayer.push(arguments);}
 			gtag('js', new Date());
