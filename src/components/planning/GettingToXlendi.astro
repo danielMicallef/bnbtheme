@@ -2,28 +2,39 @@
   <div class="space-y-6 prose">
     <div>
       <div class="mb-4">
-        <p>Getting to Xlendi is straightforward. Here’s a simple guide:</p>
-        <p><strong>From Malta to Gozo:</strong></p>
+        <h3>From Malta to Gozo</h4>
         <ul>
-            <li><strong>Gozo Ferry</strong>: Head to Ċirkewwa in the north of Malta. The ferry to Gozo's Mġarr Harbour leaves every 30-45 minutes and the crossing takes about 15 minutes. You can find <a href="https://www.gozochannel.com/ferry/schedule/" target="_blank" rel="noopener noreferrer">the Gozo Channel schedule here</a>.</li>
-            <li><strong>Fast Ferry (Passengers Only)</strong>: From Lascaris Wharf in Valletta, a 45-minute fast ferry takes you directly to Gozo. To plan your day, you can check the <a href="https://gozohighspeed.com/pages/fares-and-schedule" target="_blank" rel="noopener noreferrer">Fast Ferry Schedule</a>. Please note that in case of bad weather, the fast ferry may not operate. It's always a good idea to check their <a href="https://www.facebook.com/GozoHighspeed" target="_blank" rel="noopener noreferrer">Facebook page</a> for the latest updates.</li>
+            <li><p><strong>Gozo Ferry</strong>: A 15-minute ferry from Ċirkewwa (Malta) to Mġarr Harbour (Gozo). The ferry to Gozo's Mġarr Harbour leaves every 30-45 minutes. Be sure to <a class="link" href="https://www.gozochannel.com/ferry/schedule/" target="_blank" rel="noopener noreferrer">View the Gozo Channel Schedule</a>.</p></li>
+            <li><p><strong>Fast Ferry</strong>: A 45-minute passenger ferry from Valletta (Malta) to Gozo. <a class="link" href="https://gozohighspeed.com/pages/fares-and-schedule" target="_blank" rel="noopener noreferrer">View the Fast Ferry Schedule</a>. Please note that in case of bad weather, the fast ferry may not operate. It's always a good idea to check their <a href="https://www.facebook.com/GozoHighspeed" target="_blank" rel="noopener noreferrer">Facebook page</a> for the latest updates.</p></li>
         </ul>
-        <p><strong>From Mġarr Harbour (Gozo) to Xlendi:</strong></p>
+
+        <h3>From Mġarr Harbour (Gozo) to Xlendi</h4>
         <ul>
-            <li><strong>Direct Bus</strong>: The TD30 bus goes directly from the harbour to Xlendi, running every 30 minutes on weekdays.</li>
-            <li><strong>Connecting Buses</strong>: Alternatively, take bus 301 to Victoria (Rabat), then switch to bus 306 to reach Xlendi.</li>
+            <li><p><strong>Direct Bus</strong>: The TD30 bus goes directly from the harbour to Xlendi, running every 30 minutes on weekdays.</p></li>
+            <li><p><strong>Connecting Buses</strong>: Alternatively, take bus 301 to Victoria (Rabat), then switch to bus 306 to reach Xlendi.</p></li>
         </ul>
-        <p><strong>Airport Transfer</strong></p>
-        <p>If it is your preference, we can arrange a taxi transfer from Malta International Airport directly to the apartment. Please <a href="/contact">contact us</a> for more details and to schedule your transfer.</p>
+
+        <h3>Airport Transfer</h4>
+        <p>We can arrange a taxi transfer from Malta International Airport directly to the apartment. Please <a class="link" href="/contact">contact us</a> to schedule.</p>
       </div>
-      <a 
-        href="https://maps.app.goo.gl/tYJopVSXFqMtAf3x7" 
-        target="_blank" 
-        rel="noopener noreferrer"
-        class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2 no-underline"
-      >
-        Open in Google Maps
-      </a>
+      <div class="flex items-center gap-4 mt-4">
+        <a 
+          href="https://maps.app.goo.gl/tYJopVSXFqMtAf3x7" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          onclick="gtag('event', 'schedule_transfer_click', { 'event_category': 'engagement', 'event_label': 'Open Directions' });"
+          class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2 no-underline"
+        >
+          Open in Google Maps
+        </a>
+        <a 
+          href="/contact"
+          onclick="gtag('event', 'schedule_transfer_click', { 'event_category': 'engagement', 'event_label': 'Schedule Transfer Button' });"
+          class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 hover:border h-10 px-4 py-2 no-underline"
+        >
+          Schedule Airport Transfer
+        </a>
+      </div>
     </div>
   </div>
 
