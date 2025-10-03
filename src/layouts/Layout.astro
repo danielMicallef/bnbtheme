@@ -85,7 +85,7 @@ const socialImageURL = mainImage ? new URL(mainImage.src, Astro.site) : new URL(
 	<body class="flex flex-col min-h-screen">
 		<div class="navbar shadow-sm">
 			<div class="navbar-start">
-				<a href={import.meta.env.BASE_URL} class="btn btn-ghost text-xl"><Waves /> {property.title}</a>
+				<a href={import.meta.env.BASE_URL} class="btn btn-ghost text-xl"><Waves /> <span class="hidden [@media(min-width:480px)]:inline">{property.title}</span></a>
 			</div>
 			<div class="navbar-end">
 				<li class="hidden"><Calendar /> </li>
@@ -109,7 +109,7 @@ const socialImageURL = mainImage ? new URL(mainImage.src, Astro.site) : new URL(
 				</ul>
 			</div>
 		</div>
-		<main class="flex-grow container mx-auto px-4 py-8">
+		<main class="flex-grow container px-4 py-8 mx-auto">
 			<div class="prose">
 				<slot />
 			</div>
