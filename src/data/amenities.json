@@ -107,7 +107,7 @@
     },
     {
       "category": "Not included",
-      "items": ["Exterior security cameras on property", "Dryer", "Lift"],
+      "items": ["Exterior security cameras on property", "Dryer", "Lift", "Laundry Detergent"],
       "unavailable": true
     }
   ]
