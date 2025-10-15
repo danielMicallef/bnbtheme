@@ -1,0 +1,26 @@
+---
+import property from "../data/property.json";
+import { Mail, PhoneCall, Languages } from '@lucide/astro';
+---
+
+<div class="p-6 border-b border-gray-200">
+  <h3 class="text-xl font-semibold">Things to know</h3>
+  <div class="grid md:grid-cols-3 space-y-2">
+    <div>
+      <h4 class="text-lg">House Rules</h4>
+      <p>Check-in: After 3:00 PM</p>
+      <p>Check-out: Before 10:00 AM</p>
+      <p>6 guests maximum</p>
+    </div>
+    <div>
+      <h4 class="text-lg">Cancellation Policy</h4>
+      <p>Cancel up to 7 days before to get a full refund (when booking directly)</p>
+    </div>
+    <div>
+      <h4 class="text-lg">Contact</h4>
+      <p><a class="flex items-center" href={`tel:${property.contact.phone}`}><PhoneCall class="mr-2" />{property.contact.phone}</a></p>
+      <p><a class="flex items-center" target="_blank" href={`mailto:${property.contact.email}`}><Mail class="mr-2" />{property.contact.email}</a></p>
+      <p class="flex items-center"><Languages /> <span class="ml-2">{property.languages.join(', ')}</span></p>
+    </div>
+  </div>
+</div>

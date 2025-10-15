@@ -1,35 +1,20 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import {Content as AboutUs} from '../components/contact/about_us.md';
 import { Mail, PhoneCall, Languages } from '@lucide/astro';
-import property from '../data/property.json'
+import property from '../data/property.json';
+import ContactForm from '../components/contact/contact_form.astro';
+
+import PropertyThingsToKnow from '../components/PropertyThingsToKnow.astro';
 ---
 
 <Layout>
   <div class="space-y-8">
     <div>
       <h1>Contact Your Hosts</h1>
-      <div class="space-y-8">
-        <div class="grid grid-cols-1 md:grid-cols-2 space-y-2">
-          <div class="flex items-center space-x-2">
-            <PhoneCall />
-            <a href={`tel:${property.contact.phone}`}>{property.contact.phone}</a>
-          </div>
-          <div class="flex items-center space-x-2">
-            <Mail />
-            <a target="_blank" href={`mailto:${property.contact.email}`}>{property.contact.email}</a>
-          </div>
-        </div>
-        <div class="flex space-x-2">
-          <Languages /> <span>{property.languages.join(', ')}</span>
-        </div>
-        <div class="card bg-white shadow-xl mt-4">
-          <div class="card-body items-center">
-            <div class="italic">
-              <AboutUs/>
-            </div>
-          </div>
-        </div>
+      <div class="container mx-auto p-4">
+        <ContactForm />
+
+        <PropertyThingsToKnow />
       </div>
     </div>
   </div>
