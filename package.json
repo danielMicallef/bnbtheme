@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@astrojs/alpinejs": "^0.4.8",
+    "@astrojs/check": "^0.9.6",
     "@astrojs/cloudflare": "^12.6.4",
     "@astrojs/sitemap": "^3.5.1",
     "@lucide/astro": "^0.540.0",
@@ -26,9 +27,12 @@
     "leaflet": "^1.9.4",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
-    "tailwindcss": "^4.1.12"
+    "resend": "^6.7.0",
+    "tailwindcss": "^4.1.12",
+    "typescript": "^5.9.3"
   },
   "devDependencies": {
-    "@tailwindcss/typography": "^0.5.16"
+    "@tailwindcss/typography": "^0.5.16",
+    "wrangler": "^4.110.0"
   }
 }

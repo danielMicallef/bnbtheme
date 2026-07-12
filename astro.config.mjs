@@ -21,5 +21,11 @@ export default defineConfig({
     plugins: [tailwindcss()],
   },
 
-  adapter: cloudflare(),
+  // The adapter bundles an older Wrangler parser that rejects ID-less KV
+  // bindings during `astro dev`. Local development uses `.env` and does not
+  // access Astro sessions, so skip the platform proxy while retaining the
+  // production SESSION binding declared in wrangler.jsonc.
+  adapter: cloudflare({
+    platformProxy: { enabled: false },
+  }),
 });

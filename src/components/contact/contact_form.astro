@@ -1,104 +1,24 @@
----
----
-
-<div class="card w-full bg-base-100 shadow-sm border border-base-300">
-  <div class="card-body p-6 md:p-8">
-    <form class="space-y-6">
-      <!-- Name and Email Row -->
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div class="form-control">
-          <label class="label pb-1">
-            <span class="label-text font-medium">Full Name</span>
-          </label>
-          <input 
-            type="text" 
-            id="fullName" 
-            name="fullName" 
-            placeholder="Your Full Name" 
-            class="input input-bordered w-full focus:input-primary" 
-            required 
-          />
-        </div>
-
-        <div class="form-control">
-          <label class="label pb-1">
-            <span class="label-text font-medium">Email Address</span>
-          </label>
-          <input 
-            type="email" 
-            id="email" 
-            name="email" 
-            placeholder="Your Email Address" 
-            class="input input-bordered w-full focus:input-primary" 
-            required 
-          />
-        </div>
-      </div>
-
-      <!-- Dates and Guests Row -->
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div class="form-control">
-          <label class="label pb-1">
-            <span class="label-text font-medium">Check In Date</span>
-          </label>
-          <input 
-            type="date" 
-            id="checkInDate" 
-            name="checkInDate" 
-            class="input input-bordered w-full focus:input-primary" 
-            required 
-          />
-        </div>
-
-        <div class="form-control">
-          <label class="label pb-1">
-            <span class="label-text font-medium">Check Out Date</span>
-          </label>
-          <input 
-            type="date" 
-            id="checkOutDate" 
-            name="checkOutDate" 
-            class="input input-bordered w-full focus:input-primary" 
-            required 
-          />
-        </div>
-
-        <div class="form-control">
-          <label class="label pb-1">
-            <span class="label-text font-medium">Number of Guests</span>
-          </label>
-          <input 
-            type="number" 
-            id="numberOfGuests" 
-            name="numberOfGuests" 
-            placeholder="e.g., 2" 
-            min="1" 
-            class="input input-bordered w-full focus:input-primary" 
-            required 
-          />
-        </div>
-      </div>
-
-      <!-- Message Field -->
-      <div class="form-control">
-        <label class="label pb-1">
-          <span class="label-text font-medium">Inquiry/Message</span>
-        </label>
-        <textarea 
-          id="message" 
-          name="message" 
-          placeholder="Your message or inquiry" 
-          class="textarea textarea-bordered h-32 w-full resize-none focus:textarea-primary" 
-          required
-        ></textarea>
-      </div>
-
-      <!-- Submit Button -->
-      <div class="form-control pt-2">
-        <button type="submit" class="btn btn-primary w-full md:w-auto md:px-8">
-          Send Message
-        </button>
-      </div>
-    </form>
-  </div>
-</div>
+<div id="contactSuccess" class="success" hidden>Thank you — your message has been sent. We’ll reply as soon as possible.</div>
+<form id="contactForm" class="card form-card form-grid">
+  <h2 style="margin:0;font-size:1rem">Send us a message</h2>
+  <div><label class="field-label" for="name">Your name</label><input class="field" id="name" name="name" required autocomplete="name" /></div>
+  <div><label class="field-label" for="email">Email</label><input class="field" id="email" name="email" type="email" required autocomplete="email" /></div>
+  <div class="message-field"><label class="field-label" for="message">How can we help?</label><textarea class="field form-message" id="message" name="message" required placeholder="Airport transfer, early check-in…"></textarea></div>
+  <button class="button dark" id="sendButton" type="submit">Send message</button><div class="status-line" id="contactStatus" aria-live="polite"></div>
+</form>
+<script>
+  const form = document.querySelector<HTMLFormElement>("#contactForm");
+  form?.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    const button = form.querySelector<HTMLButtonElement>("#sendButton")!;
+    const status = form.querySelector<HTMLElement>("#contactStatus")!;
+    button.disabled = true; status.textContent = "Sending…";
+    try {
+      const response = await fetch("/_actions/sendContactEmail", { method: "POST", body: new FormData(form) });
+      const result = await response.json();
+      if (!response.ok || result.error) throw new Error(result.error?.message || "Could not send message");
+      form.reset(); form.hidden = true; document.querySelector<HTMLElement>("#contactSuccess")!.hidden = false;
+    } catch (error) { status.textContent = error instanceof Error ? error.message : "Please try again."; }
+    finally { button.disabled = false; }
+  });
+</script>

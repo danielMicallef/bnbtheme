@@ -1,10 +1,8 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import ThingsToDo from '../components/planning/ThingsToDo.astro';
+import Layout from "../layouts/Layout.astro";
+import ThingsToDo from "../components/planning/ThingsToDo.astro";
+import { Content as Intro } from "../content/planning-intro.md";
 ---
-<Layout title="Planning your trip to Xlendi">
-  <main class="container mx-auto px-4 py-8">
-    <h1 class="text-4xl font-bold mb-8">Planning your trip in Gozo</h1>
-    <ThingsToDo />
-  </main>
+<Layout title="Planning your trip">
+  <section class="page shell"><span class="eyebrow">Gozo, tried and tested</span><h1 class="page-title">Things to do in Gozo</h1><div class="page-lead"><Intro /></div><ThingsToDo /></section>
 </Layout>

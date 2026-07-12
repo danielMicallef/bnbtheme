@@ -1,129 +1,68 @@
 ---
 import "../assets/app.css";
-import Calendar from "../components/Calendar.astro";
-import { Waves, Ellipsis } from "@lucide/astro";
 import property from "../data/property.json";
 import { getImage } from "astro:assets";
+import mainPhoto from "../assets/images/01_gallery_a.webp";
 
-export interface Props {
-	title?: string;
-	description?: string;
-}
-
-interface Photo {
-  src: string;
-  alt: string;
-  main: boolean;
-}
-
-const { 
-	description = 'Seaview apartment in Xlendi, Gozo available for your next getaway. Sleeps up to 6, fully-equipped kitchen, close to the beach, restaurants and bars.' 
+export interface Props { title?: string; description?: string; }
+const {
+  title = property.title,
+  description = "A sea-view apartment in Xlendi, Gozo, sleeping up to six guests — two minutes from the beach.",
 } = Astro.props;
-
-// Find the main photo from the JSON data
-const mainPhotoData = property.photos.find((p: Photo) => p.main);
-
-// Dynamically import all images from the assets directory
-const allImages = await import.meta.glob<{ default: ImageMetadata }>('../assets/images/*.{jpeg,jpg,png,gif,JPG,webp}');
-
-let mainImage;
-if (mainPhotoData) {
-  const imagePath = `../assets/images/${mainPhotoData.src}`;
-  const imageImporter = allImages[imagePath];
-  if (imageImporter) {
-    const importedImage = await imageImporter();
-    // Generate an image optimized for social media cards (1200x630 is standard)
-    mainImage = await getImage({ src: importedImage.default, width: 1200, height: 630, format: 'jpg' });
-  }
-}
-
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
-// Use the generated image URL, or a fallback if it doesn't exist
-const socialImageURL = mainImage ? new URL(mainImage.src, Astro.site) : new URL('/default-social-image.jpg', Astro.site);
+const socialImage = await getImage({ src: mainPhoto, width: 1200, height: 630, format: "jpg" });
+const path = Astro.url.pathname;
+const active = (href: string) => href === "/" ? path === "/" : path.startsWith(href);
 ---
-
 <!doctype html>
-<html lang="en" data-theme="cupcake">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="description" content={description} />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="sitemap" href="/sitemap-index.xml" />
-		<meta name="generator" content={Astro.generator} />
-		<title>{property.title}</title>
-
-		<!-- Social Media Meta Tags -->
-		<meta property="og:title" content={property.title} />
-		<meta property="og:description" content={description} />
-		<meta property="og:url" content={canonicalURL.href} />
-		<meta property="og:image" content={socialImageURL.href} />
-		<meta property="og:type" content="website" />
-		<meta property="og:site_name" content={property.title} />
-
-		<meta name="twitter:card" content="summary_large_image" />
-		<meta name="twitter:title" content={property.title} />
-		<meta name="twitter:description" content={description} />
-		<meta name="twitter:image" content={socialImageURL.href} />
-
-		<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-		integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
-		crossorigin=""/>
-		<!-- <GoogleAnalytics /> -->
-
-		<script async src="https://www.googletagmanager.com/gtag/js?id=G-RLBBN5NRKP"></script>
-		<script is:inline>
-			window.dataLayer = window.dataLayer || [];
-			function gtag(){dataLayer.push(arguments);}
-			gtag('js', new Date());
-
-			gtag('config', 'G-RLBBN5NRKP');
-		</script>
-
-	</head>
-
-	<body class="flex flex-col min-h-screen">
-		<div class="navbar shadow-sm">
-			<div class="navbar-start">
-				<a href={import.meta.env.BASE_URL} class="btn btn-ghost text-xl"><Waves /> <span class="hidden [@media(min-width:480px)]:inline">{property.title}</span></a>
-			</div>
-			<div class="navbar-end">
-				<li class="hidden"><Calendar /> </li>
-				<ul class="menu menu-horizontal px-1 gap-x-3">
-					<li class="hidden lg:block"><a href="/planning" class="btn btn-ghost">Planning Your Trip</a></li>
-					<li class="hidden lg:block"><a href="/map" class="btn btn-ghost">Tourist Map</a></li>
-					<li class="hidden lg:block"><a href="/contact" class="btn btn-ghost">Contact</a></li>
-					
-					<div class="dropdown dropdown-end lg:hidden">
-						<Ellipsis tabindex="0" role="button" class="btn btn-ghost" />
-						
-						<ul tabindex="0" class="menu dropdown-content z-[1] p-2 shadow bg-base-100 rounded-box w-52 mt-4">
-
-							<li class="hidden"><Calendar /> </li>
-							<li><a href="/book">Booking Directly</a></li>
-							<li><a href="/planning">Planning Your Trip</a></li>
-							<li><a href="/map">Tourist Map</a></li>
-							<li><a href="/contact">Contact</a></li>
-						</ul>
-					</div>
-				</ul>
-			</div>
-		</div>
-		<main class="flex-grow container px-4 py-8 mx-auto">
-			<div class="prose">
-				<slot />
-			</div>
-		</main>
-		<footer class="footer footer-center p-10 bg-base-200 text-base-content rounded">
-			<nav class="grid grid-flow-col gap-4">
-			  <a href="/book" class="link link-hover">Direct bookings</a>
-			  <a href="/contact" class="link link-hover">Contact</a>
-			  <a href="/privacy" class="link link-hover">Privacy Policy</a>
-			  <a href="/terms" class="link link-hover">Terms and Conditions</a>
-			</nav> 
-			<aside>
-			  <p>Copyright © {new Date().getFullYear()} - All right reserved by {import.meta.env.PUBLIC_SITE_NAME}</p>
-			</aside>
-		</footer>
-	</body>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <title>{title === property.title ? title : `${title} · Sunset Seaview`}</title>
+    <link rel="canonical" href={canonicalURL.href} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalURL.href} />
+    <meta property="og:image" content={new URL(socialImage.src, Astro.site).href} />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+  </head>
+  <body>
+    <header class="site-header">
+      <nav class="nav shell" aria-label="Main navigation">
+        <a class="brand" href="/">Sunset Seaview <span class="brand-location"><span class="brand-dot">·</span> Xlendi</span></a>
+        <button class="menu-toggle" aria-label="Open navigation" aria-expanded="false">☰</button>
+        <div class="nav-links">
+          <a class:list={[{ active: active("/apartment") }]} href="/apartment">The apartment</a>
+          <a class:list={[{ active: active("/planning") }]} href="/planning">Planning your trip</a>
+          <a class:list={[{ active: active("/getting-here") || active("/map") || active("/transfer") || active("/car-hire") }]} href="/getting-here">Getting here</a>
+          <a class:list={[{ active: active("/contact") }]} href="/contact">Contact</a>
+          <a class="button small" href="/book">Book now</a>
+        </div>
+      </nav>
+    </header>
+    <main><slot /></main>
+    <footer class="site-footer">
+      <div class="shell footer-inner">
+        <span>© {new Date().getFullYear()} Sunset Seaview Apartment, Xlendi, Gozo</span>
+        <div class="footer-links"><a href="tel:+35679416569">+356 7941 6569</a><a href="/privacy">Privacy</a><a href="/terms">Terms</a></div>
+      </div>
+    </footer>
+    <script>
+      const toggle = document.querySelector<HTMLButtonElement>(".menu-toggle");
+      const links = document.querySelector<HTMLElement>(".nav-links");
+      toggle?.addEventListener("click", () => {
+        const open = links?.classList.toggle("open") ?? false;
+        toggle.setAttribute("aria-expanded", String(open));
+        document.body.classList.toggle("menu-open", open);
+      });
+    </script>
+  </body>
 </html>

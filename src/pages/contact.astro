@@ -1,21 +1,19 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import { Mail, PhoneCall, Languages } from '@lucide/astro';
-import property from '../data/property.json';
-import ContactForm from '../components/contact/contact_form.astro';
-
-import PropertyThingsToKnow from '../components/PropertyThingsToKnow.astro';
+import Layout from "../layouts/Layout.astro";
+import ContactForm from "../components/contact/contact_form.astro";
+import { Image } from "astro:assets";
+import daniel from "../assets/hosts/primary_host.webp";
+import rebecca from "../assets/hosts/secondary_host.webp";
+import { Content as About } from "../components/contact/about_us.md";
+import property from "../data/property.json";
 ---
-
-<Layout>
-  <div class="space-y-8">
+<Layout title="Contact your hosts">
+  <section class="page shell"><span class="eyebrow">We’re here to help</span><div class="contact-grid">
     <div>
-      <h1>Contact Your Hosts</h1>
-      <div class="container mx-auto p-4">
-        <ContactForm />
-
-        <PropertyThingsToKnow />
-      </div>
+      <div class="host-intro"><span class="avatars"><Image src={rebecca} alt="Rebecca" /><Image src={daniel} alt="Daniel" /></span><h1 class="page-title">Your hosts, Rebecca &amp; Daniel</h1><p class="page-lead" style="margin-inline:auto">English, Maltese, Italian · best reached by text or email</p></div>
+      <div class="contact-actions"><a class="button" href={`https://wa.me/${property.contact.phone.replace(/\D/g, "")}`}>💬 WhatsApp</a><a class="button secondary" href={`tel:${property.contact.phone}`}>📞 {property.contact.phone}</a><a class="button secondary wide" href={`mailto:${property.contact.email}`}>✉️ Email us</a></div>
+      <div class="card prose-card"><About /></div>
     </div>
-  </div>
+    <ContactForm />
+  </div></section>
 </Layout>

@@ -1,44 +1,57 @@
-# BNBTheme with Astro
+# Sunset Seaview Apartment
 
-This is intended to be a bnb theme to easily advertise your short let apartment
+Astro 5 site for Sunset Seaview Apartment in Xlendi, deployed to Cloudflare Workers. Most pages are pre-rendered; only the availability API and Astro Actions execute on demand.
 
-> Used to advertise seaviewapartmentxlendi.com
+## Local development
 
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
-/
-├── public/
-│   └── favicon.svg
-├── src
-│   ├── assets
-│   │   └── astro.svg
-│   ├── components
-│   │   └── Welcome.astro
-│   ├── layouts
-│   │   └── Layout.astro
-│   └── pages
-│       └── index.astro
-└── package.json
+```sh
+bun install
+cp .env.example .env
+bun run dev
 ```
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
+Run the production checks with:
 
-## 🧞 Commands
+```sh
+bunx astro check
+bun run build
+```
 
-All commands are run from the root of the project, from a terminal:
+## Availability and pricing
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `bun install`             | Installs dependencies                            |
-| `bun dev`             | Starts local dev server at `localhost:4321`      |
-| `bun build`           | Build your production site to `./dist/`          |
-| `bun preview`         | Preview your build locally, before deploying     |
-| `bun astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `bun astro -- --help` | Get help using the Astro CLI                     |
+`GET /api/availability.json` merges blocked nights from the Airbnb and Booking.com iCal feeds. Configure `AIRBNB_ICAL_URL` and `BOOKING_ICAL_URL` as secrets. Keep the complete feed URLs private because they contain calendar tokens.
 
-## 👀 Want to learn more?
+Pricing is deliberately swappable. `PRICING_JSON_URL` may point to JSON with this shape:
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+```json
+{
+  "defaultNightly": 85,
+  "cleaningFee": 65,
+  "minStay": 2,
+  "prices": {
+    "2026-08-14": 125
+  }
+}
+```
+
+Date-specific values override `defaultNightly`. If the pricing source is absent or unavailable, the API uses seasonal fallback rates so local development remains functional. If iCal feeds are absent, the calendar explicitly labels availability as sample data.
+
+## Email requests
+
+Contact, booking and transfer forms post to Astro Actions and send through Resend. They do not collect or charge payment. Configure `RESEND_API_KEY` and `CONTACT_EMAIL_TO` as Cloudflare secrets before deployment.
+
+## Cloudflare deployment
+
+The Cloudflare adapter uses the `SESSION` KV binding for Astro Actions. `wrangler.jsonc` declares it without an ID so Wrangler can provision it on deploy.
+
+```sh
+bunx wrangler secret put RESEND_API_KEY
+bunx wrangler secret put CONTACT_EMAIL_TO
+bunx wrangler secret put AIRBNB_ICAL_URL
+bunx wrangler secret put BOOKING_ICAL_URL
+bunx wrangler secret put PRICING_JSON_URL
+bun run build
+bunx wrangler deploy
+```
+
+`PRICING_JSON_URL` is optional. The two iCal feeds are strongly recommended before accepting booking requests.
