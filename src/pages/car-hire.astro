@@ -1,0 +1,35 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { Content as Intro } from "../content/car-hire-intro.md";
+---
+<Layout title="Hire a car">
+  <section class="page shell flow" id="carHireFlow">
+    <div id="carHireRequest">
+      <div class="flow-header"><div><span class="eyebrow">Car hire request</span><h1 class="page-title">Hire a car</h1><div class="page-lead"><Intro /></div></div><div class="progress"><span class="on"></span><span></span></div></div>
+      <div class="transfer-grid">
+        <form class="transfer-form" id="carHireForm">
+          <div class="card route-card"><strong>🚗 Car hire for your stay in Gozo</strong><small>Pickup or delivery details confirmed by email</small></div>
+          <div><label class="field-label" for="carHireName">Lead driver</label><input class="field" id="carHireName" name="name" required autocomplete="name" /></div>
+          <label class="license-confirmation" for="carHireLicense"><input id="carHireLicense" name="drivingLicense" value="on" type="checkbox" required /> <span>I confirm that the lead driver holds a valid driving licence.</span></label>
+          <div><label class="field-label" for="carHireEmail">Email</label><input class="field" id="carHireEmail" name="email" type="email" required autocomplete="email" /></div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px"><div><label class="field-label" for="pickupDate">Pickup date</label><input class="field" id="pickupDate" name="pickupDate" type="date" required /></div><div><label class="field-label" for="pickupTime">Pickup time</label><input class="field" id="pickupTime" name="pickupTime" type="time" required /></div></div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px"><div><label class="field-label" for="returnDate">Return date</label><input class="field" id="returnDate" name="returnDate" type="date" required /></div><div><label class="field-label" for="returnTime">Return time</label><input class="field" id="returnTime" name="returnTime" type="time" required /></div></div>
+          <div><label class="field-label" for="carPassengers">Passengers</label><input class="field" id="carPassengers" name="passengers" type="number" min="1" max="8" value="2" required /></div>
+          <div><label class="field-label" for="carBookingRef">Stay booking reference (optional)</label><input class="field" id="carBookingRef" name="bookingRef" /></div>
+          <button class="button" type="submit">Request a hire car</button><div class="status-line" id="carHireStatus" aria-live="polite"></div>
+        </form>
+        <aside><div class="card summary-card"><h3>Your request</h3><div class="summary-line"><span>Hire car</span><strong>Quote confirmed by email</strong></div><div class="summary-line"><span>Vehicle</span><strong>Matched to your group</strong></div><div class="summary-line"><span>Pickup or delivery</span><strong>Confirmed by email</strong></div></div><div class="notice" style="margin-top:12px"><strong>No charge today</strong><br /><span>After availability is confirmed, we’ll email the vehicle details, final price and a secure payment link.</span></div></aside>
+      </div>
+    </div>
+    <div class="transfer-confirm" id="carHireConfirmed"><div class="checkmark">✓</div><h1 class="page-title">Car hire requested!</h1><p class="page-lead" style="margin-inline:auto">Your request has been sent to your hosts. We’ll reply with availability, vehicle details, the exact price and payment link.</p><div style="display:flex;justify-content:center;gap:10px;margin-top:22px"><a class="button" href="/planning">View our Gozo guide</a><a class="button secondary" href="/getting-here">Back to getting here</a></div></div>
+  </section>
+  <script>
+    const flow = document.querySelector<HTMLElement>("#carHireFlow")!;
+    const form = flow.querySelector<HTMLFormElement>("#carHireForm")!;
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault(); const button = form.querySelector<HTMLButtonElement>("button[type=submit]")!; const status = flow.querySelector<HTMLElement>("#carHireStatus")!; button.disabled = true; status.textContent = "Sending your request…";
+      try { const response = await fetch("/_actions/requestCarHire", { method: "POST", body: new FormData(form) }); const result = await response.json(); if (!response.ok || result.error) throw new Error(result.error?.message || "Could not send request"); flow.querySelector<HTMLElement>("#carHireRequest")!.hidden = true; flow.querySelector<HTMLElement>("#carHireConfirmed")!.classList.add("visible"); window.scrollTo({ top: 0, behavior: "smooth" }); }
+      catch (error) { status.textContent = error instanceof Error ? error.message : "Please try again."; button.disabled = false; }
+    });
+  </script>
+</Layout>

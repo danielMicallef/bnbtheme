@@ -1,12 +1,52 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import PropertyDetails from '../components/PropertyDetails.astro';
-import Layout from '../layouts/Layout.astro';
-import PhotoGallery from '../components/PhotoGallery.astro';
+import Layout from "../layouts/Layout.astro";
+import { Image } from "astro:assets";
+import main from "../assets/images/01_gallery_a.webp";
+import view from "../assets/images/02_gallery_view.webp";
+import kitchen from "../assets/images/03_kitchen.webp";
+import sofa from "../assets/images/04_sofa_area.webp";
+import dining from "../assets/images/07_dining_sofa.webp";
+import daniel from "../assets/hosts/primary_host.webp";
+import rebecca from "../assets/hosts/secondary_host.webp";
+import { Content as Intro } from "../content/apartment-intro.md";
 ---
-
 <Layout>
-	<PhotoGallery />
-	<Welcome />
-	<PropertyDetails />
+  <section class="page shell home-grid">
+    <div>
+      <div class="gallery-grid">
+        <Image class="gallery-main" src={main} alt="Balcony overlooking Xlendi Bay" widths={[450, 800, 1200]} sizes="(max-width: 800px) 65vw, 50vw" priority />
+        <Image src={view} alt="Sunset view from the apartment" widths={[300, 600]} />
+        <Image src={kitchen} alt="The apartment kitchen" widths={[300, 600]} />
+        <Image src={sofa} alt="Living room" widths={[300, 600]} />
+        <div class="gallery-more"><Image src={dining} alt="Dining area" widths={[300, 600]} /><a class="button" href="/gallery">See all photos</a></div>
+      </div>
+      <div class="hero-copy">
+        <span class="eyebrow">Entire rental · Xlendi, Gozo</span>
+        <h1>Seaview 2-bedroom apartment in Xlendi, Gozo</h1>
+        <p class="subline">2 bedrooms · 4 beds · 2 baths · sleeps 6</p>
+        <div class="ratings">
+          <a class="card rating" href="https://www.airbnb.com/rooms/559907383709411950" target="_blank"><strong>★ 4.87</strong><span>Reviews on Airbnb</span></a>
+          <a class="card rating" href="https://www.booking.com/hotel/mt/seaview-2-bedroom-apartment-in-xlendi.html" target="_blank"><strong>9.4 <small>Superb</small></strong><span>Booking.com score</span></a>
+        </div>
+        <div class="page-lead"><Intro /></div>
+        <div class="feature-row">
+          <div class="card feature"><strong>🌅 Balcony sunsets over the bay</strong>Outdoor dining with a full sea view</div>
+          <div class="card feature"><strong>🔑 Self check-in with lockbox</strong>Arrive any time after 3pm</div>
+          <div class="card feature"><strong>🏖️ 2 minutes to Xlendi beach</strong>Restaurants, bars and groceries nearby</div>
+        </div>
+        <div class="notice"><strong>Direct is cheapest — guaranteed</strong><br /><span>Price match</span></div>
+        <a class="card host-strip" href="/contact">
+          <span class="avatars"><Image src={daniel} alt="Daniel" /><Image src={rebecca} alt="Rebecca" /></span>
+          <span>Hosted by <strong>Daniel &amp; Rebecca</strong> · 3 years · 4.87★</span>
+        </a>
+      </div>
+    </div>
+    <aside class="card booking-card">
+      <span class="from">From</span> <span class="price">€75</span><span class="from"> / night</span>
+      <div class="booking-fields"><a href="/book"><small>Check-in</small>Add date</a><a href="/book"><small>Check-out</small>Add date</a></div>
+      <a class="button" href="/book">Book now</a>
+      <p class="booking-note">Free cancellation until 7 days before · secure request</p>
+      <div class="notice" style="margin-top:16px"><strong>Private airport transfer</strong><br /><a href="/transfer">Schedule door-to-door pickup →</a></div>
+    </aside>
+  </section>
 </Layout>

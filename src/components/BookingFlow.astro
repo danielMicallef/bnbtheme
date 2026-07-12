@@ -1,0 +1,120 @@
+---
+import bookingImage from "../assets/images/07_dining_sofa.webp";
+---
+<div id="bookingFlow" class="flow shell page">
+  <section id="datesStep">
+    <div class="flow-header"><div><span class="eyebrow">Step 1 of 2</span><h1 class="page-title">When are you coming?</h1></div><div class="progress" aria-label="Booking progress"><span class="on"></span><span></span></div></div>
+    <div class="calendar-layout">
+      <div><div class="months" id="months" aria-live="polite"></div><div class="legend"><span><i style="background:var(--terracotta)"></i>Selected</span><span><i style="background:var(--soft)"></i>Booked</span><span><i style="background:var(--green)"></i><span id="sourceLabel">Loading live availability…</span></span></div></div>
+      <aside class="card summary-card"><h3>Your stay</h3><div id="dateSummary" class="summary-line"><span>Choose check-in and check-out</span></div><div class="guest-control"><span>Guests</span><span class="stepper"><button id="guestMinus" type="button" aria-label="Remove guest">−</button><strong id="guestCount">2</strong><button id="guestPlus" type="button" aria-label="Add guest">+</button></span></div><div class="summary-line"><span>Accommodation</span><strong id="nightCost">—</strong></div><div class="summary-line"><span>Cleaning fee</span><strong id="cleaningCost">—</strong></div><div class="summary-line summary-total"><span>Total</span><strong id="totalCost">—</strong></div><p class="booking-note" id="minimumStay">Minimum stay 2 nights · free cancellation until 7 days before</p><button class="button" id="continueButton" type="button" disabled>Continue</button></aside>
+    </div>
+  </section>
+  <section id="checkoutStep" class="checkout">
+    <div class="flow-header"><div><button class="button secondary small" id="backButton" type="button">← Back</button><span class="eyebrow" style="margin-left:10px">Step 2 of 2</span><h1 class="page-title" style="margin-top:12px">Review &amp; request</h1></div><div class="progress"><span class="on"></span><span class="on"></span></div></div>
+    <div class="checkout-grid">
+      <form id="bookingForm">
+        <h2>How would you like to pay?</h2>
+        <label class="card payment-option" id="depositOption"><span><strong>Pay 30% deposit now</strong><br /><small id="depositCopy">The balance is due 7 days before check-in.</small></span><input id="depositRadio" type="radio" name="paymentPlan" value="deposit" checked /></label>
+        <label class="card payment-option"><span><strong>Pay in full now</strong><br /><small id="fullCopy">Pay the complete booking total now.</small></span><input id="fullRadio" type="radio" name="paymentPlan" value="full" /></label>
+        <h2>Your details</h2><div class="form-grid"><div><label class="field-label" for="bookingName">Name</label><input class="field" id="bookingName" name="name" required autocomplete="name" /></div><div><label class="field-label" for="bookingEmail">Email</label><input class="field" id="bookingEmail" name="email" type="email" required autocomplete="email" /></div><div><label class="field-label" for="bookingPhone">Phone</label><input class="field" id="bookingPhone" name="phone" autocomplete="tel" /></div></div>
+        <input type="hidden" name="checkIn" /><input type="hidden" name="checkOut" /><input type="hidden" name="guests" /><input type="hidden" name="total" />
+        <div class="payment-buttons"><button class="button dark" type="submit">Request with Revolut Pay</button><button class="button secondary" type="submit">Request with debit / credit card</button></div><p class="booking-note">🔒 Demo checkout: no payment is taken on this screen. After confirming availability, we’ll send a secure link for the amount shown above.</p><div class="status-line" id="bookingStatus" aria-live="polite"></div>
+      </form>
+      <aside class="card summary-card"><img class="booking-image" src={bookingImage.src} alt="Sunset Seaview Apartment living room" /><h3 style="margin-top:12px">Sunset Seaview Apartment</h3><div id="checkoutSummary"></div></aside>
+    </div>
+  </section>
+</div>
+
+<script>
+  type DayInfo = { available: boolean; price: number };
+  type Availability = { updatedAt: string; liveSources: number; minStay: number; cleaningFee: number; days: Record<string, DayInfo> };
+  const root = document.querySelector<HTMLElement>("#bookingFlow")!;
+  const monthsEl = root.querySelector<HTMLElement>("#months")!;
+  const pad = (value: number) => String(value).padStart(2, "0");
+  const iso = (date: Date) => `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}`;
+  const atMidnight = (value: string) => new Date(`${value}T00:00:00`);
+  const money = (value: number) => new Intl.NumberFormat("en-MT", { style: "currency", currency: "EUR", minimumFractionDigits: Number.isInteger(value) ? 0 : 2, maximumFractionDigits: 2 }).format(value);
+  const displayDate = (value: string) => atMidnight(value).toLocaleDateString("en-GB", { weekday: "short", day: "numeric", month: "short" });
+  let data: Availability = { updatedAt: "", liveSources: 0, minStay: 2, cleaningFee: 65, days: {} };
+  let checkIn = "", checkOut = "", guests = 2;
+  let firstMonth = new Date(); firstMonth = new Date(firstMonth.getFullYear(), firstMonth.getMonth(), 1);
+
+  function nights() { return checkIn && checkOut ? Math.round((atMidnight(checkOut).getTime() - atMidnight(checkIn).getTime()) / 86400000) : 0; }
+  function datesBetween(start: string, end: string) { const dates: string[] = []; for (let day = atMidnight(start); day < atMidnight(end); day.setDate(day.getDate() + 1)) dates.push(iso(day)); return dates; }
+  function accommodation() { return checkIn && checkOut ? datesBetween(checkIn, checkOut).reduce((sum, date) => sum + (data.days[date]?.price ?? 0), 0) : 0; }
+  function validRange(start: string, end: string) { return nightsFor(start, end) >= data.minStay && datesBetween(start, end).every((date) => data.days[date]?.available); }
+  function nightsFor(start: string, end: string) { return Math.round((atMidnight(end).getTime() - atMidnight(start).getTime()) / 86400000); }
+  function bookingTotal() { const stay = accommodation(); return stay ? stay + data.cleaningFee : 0; }
+  function depositAmount(total: number) { return Math.round(total * 30) / 100; }
+
+  function updatePaymentTerms() {
+    if (!checkIn || !checkOut) return;
+    const total = bookingTotal();
+    const checkInDate = atMidnight(checkIn);
+    const today = new Date(); today.setHours(0, 0, 0, 0);
+    const daysUntilCheckIn = Math.round((checkInDate.getTime() - today.getTime()) / 86400000);
+    const fullPaymentRequired = daysUntilCheckIn < 7;
+    const depositOption = root.querySelector<HTMLElement>("#depositOption")!;
+    const depositRadio = root.querySelector<HTMLInputElement>("#depositRadio")!;
+    const fullRadio = root.querySelector<HTMLInputElement>("#fullRadio")!;
+    const depositWasHidden = depositOption.hidden;
+    depositOption.hidden = fullPaymentRequired;
+    if (fullPaymentRequired) fullRadio.checked = true;
+    else if (depositWasHidden) depositRadio.checked = true;
+    const balanceDue = new Date(checkInDate); balanceDue.setDate(balanceDue.getDate() - 7);
+    const deposit = depositAmount(total);
+    root.querySelector("#depositCopy")!.textContent = `${money(deposit)} now · ${money(total - deposit)} due ${displayDate(iso(balanceDue))}.`;
+    root.querySelector("#fullCopy")!.textContent = fullPaymentRequired ? `Check-in is less than 7 days away · ${money(total)} due now.` : `${money(total)} due now.`;
+  }
+
+  function selectDate(date: string) {
+    if (!checkIn || checkOut || date <= checkIn) { checkIn = date; checkOut = ""; }
+    else if (validRange(checkIn, date)) checkOut = date;
+    else { checkIn = date; checkOut = ""; }
+    render(); updateSummary();
+  }
+
+  function monthMarkup(date: Date) {
+    const year = date.getFullYear(), month = date.getMonth();
+    const count = new Date(year, month + 1, 0).getDate();
+    const offset = (new Date(year, month, 1).getDay() + 6) % 7;
+    let days = Array.from({ length: offset }, () => '<button class="day empty" tabindex="-1"></button>').join("");
+    for (let number = 1; number <= count; number++) {
+      const key = iso(new Date(year, month, number)); const info = data.days[key];
+      const past = atMidnight(key) < new Date(new Date().setHours(0, 0, 0, 0));
+      const booked = !info?.available; const selected = key === checkIn || key === checkOut; const inRange = checkIn && checkOut && key > checkIn && key < checkOut;
+      const classes = ["day", past ? "past" : "", booked ? "booked" : "", selected ? "selected" : "", inRange ? "in-range" : ""].filter(Boolean).join(" ");
+      days += `<button class="${classes}" data-date="${key}" ${(past || booked) ? "disabled" : ""}><strong>${number}</strong><small>${info ? money(info.price) : "—"}</small></button>`;
+    }
+    const title = date.toLocaleDateString("en-GB", { month: "long", year: "numeric" });
+    return `<div class="month"><div class="month-title"><button class="button secondary small month-prev" type="button" aria-label="Previous month">‹</button><span>${title}</span><button class="button secondary small month-next" type="button" aria-label="Next month">›</button></div><div class="week"><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span><span>S</span></div><div class="days">${days}</div></div>`;
+  }
+  function render() {
+    monthsEl.innerHTML = monthMarkup(firstMonth) + monthMarkup(new Date(firstMonth.getFullYear(), firstMonth.getMonth() + 1, 1));
+    monthsEl.querySelectorAll<HTMLButtonElement>("[data-date]").forEach((button) => button.addEventListener("click", () => selectDate(button.dataset.date!)));
+    monthsEl.querySelectorAll(".month-prev").forEach((button) => button.addEventListener("click", () => { firstMonth = new Date(firstMonth.getFullYear(), firstMonth.getMonth() - 1, 1); render(); }));
+    monthsEl.querySelectorAll(".month-next").forEach((button) => button.addEventListener("click", () => { firstMonth = new Date(firstMonth.getFullYear(), firstMonth.getMonth() + 1, 1); render(); }));
+  }
+  function updateSummary() {
+    root.querySelector("#guestCount")!.textContent = String(guests);
+    const count = nights(), stay = accommodation(), total = bookingTotal();
+    root.querySelector("#dateSummary")!.innerHTML = checkIn ? `<span>${displayDate(checkIn)}${checkOut ? ` → ${displayDate(checkOut)}<br><small>${count} nights</small>` : " → choose checkout"}</span>` : "<span>Choose check-in and check-out</span>";
+    root.querySelector("#nightCost")!.textContent = stay ? money(stay) : "—"; root.querySelector("#cleaningCost")!.textContent = stay ? money(data.cleaningFee) : "—"; root.querySelector("#totalCost")!.textContent = total ? money(total) : "—";
+    root.querySelector<HTMLButtonElement>("#continueButton")!.disabled = !checkIn || !checkOut;
+    root.querySelector("#minimumStay")!.textContent = `Minimum stay ${data.minStay} nights · free cancellation until 7 days before`;
+    root.querySelector("#checkoutSummary")!.innerHTML = `<div class="summary-line"><span>${checkIn && checkOut ? `${displayDate(checkIn)} → ${displayDate(checkOut)} · ${count} nights · ${guests} guests` : "Dates not selected"}</span></div><div class="summary-line"><span>Accommodation</span><strong>${money(stay)}</strong></div><div class="summary-line"><span>Cleaning fee</span><strong>${money(data.cleaningFee)}</strong></div><div class="summary-line summary-total"><span>Total</span><strong>${money(total)}</strong></div>`;
+    updatePaymentTerms();
+  }
+  root.querySelector("#guestMinus")?.addEventListener("click", () => { guests = Math.max(1, guests - 1); updateSummary(); });
+  root.querySelector("#guestPlus")?.addEventListener("click", () => { guests = Math.min(6, guests + 1); updateSummary(); });
+  root.querySelector("#continueButton")?.addEventListener("click", () => { root.querySelector("#datesStep")!.setAttribute("hidden", ""); root.querySelector("#checkoutStep")!.classList.add("visible"); updateSummary(); window.scrollTo({ top: 0, behavior: "smooth" }); });
+  root.querySelector("#backButton")?.addEventListener("click", () => { root.querySelector("#datesStep")!.removeAttribute("hidden"); root.querySelector("#checkoutStep")!.classList.remove("visible"); });
+  const bookingForm = root.querySelector<HTMLFormElement>("#bookingForm")!;
+  bookingForm.addEventListener("submit", async (event) => {
+    event.preventDefault(); const form = bookingForm; const status = root.querySelector<HTMLElement>("#bookingStatus")!; const buttons = form.querySelectorAll<HTMLButtonElement>("button[type=submit]");
+    const formData = new FormData(form); const total = bookingTotal(); const plan = formData.get("paymentPlan"); const dueNow = plan === "deposit" ? depositAmount(total) : total; formData.set("checkIn", checkIn); formData.set("checkOut", checkOut); formData.set("guests", String(guests)); formData.set("total", money(total)); formData.set("dueNow", money(dueNow)); buttons.forEach((b) => b.disabled = true); status.textContent = "Sending your request…";
+    try { const response = await fetch("/_actions/requestBooking", { method: "POST", body: formData }); const result = await response.json(); if (!response.ok || result.error) throw new Error(result.error?.message || "Could not send request"); form.innerHTML = '<div class="success"><strong>Request sent!</strong><br>We’ll verify the dates and reply by email with the next steps. No payment has been taken.</div>'; }
+    catch (error) { status.textContent = error instanceof Error ? error.message : "Please try again."; buttons.forEach((b) => b.disabled = false); }
+  });
+  fetch("/api/availability.json").then((response) => response.json()).then((availability: Availability) => { data = availability; root.querySelector("#sourceLabel")!.textContent = data.liveSources ? `Live availability from ${data.liveSources} connected calendar${data.liveSources > 1 ? "s" : ""}` : "Sample availability — live calendar feeds not configured"; render(); updateSummary(); }).catch(() => { root.querySelector("#sourceLabel")!.textContent = "Availability could not be loaded"; render(); updateSummary(); });
+</script>

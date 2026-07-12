@@ -1,0 +1,34 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { Content as Intro } from "../content/transfer-intro.md";
+---
+<Layout title="Airport transfer">
+  <section class="page shell flow" id="transferFlow">
+    <div id="transferRequest">
+      <div class="flow-header"><div><span class="eyebrow">Transfer request</span><h1 class="page-title">Airport transfer</h1><div class="page-lead"><Intro /></div></div><div class="progress"><span class="on"></span><span></span></div></div>
+      <div class="transfer-grid">
+        <form class="transfer-form" id="transferForm">
+          <div class="card route-card"><strong>🚕 Malta International Airport → Sunset Seaview, Xlendi</strong><small>Private taxi, ferry crossing and luggage included</small></div>
+          <div><label class="field-label" for="transferName">Lead passenger</label><input class="field" id="transferName" name="name" required autocomplete="name" /></div>
+          <div><label class="field-label" for="transferEmail">Email</label><input class="field" id="transferEmail" name="email" type="email" required autocomplete="email" /></div>
+          <div><label class="field-label" for="flight">Flight number</label><input class="field" id="flight" name="flight" required placeholder="KM 479" /></div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px"><div><label class="field-label" for="arrivalDate">Arrival date</label><input class="field" id="arrivalDate" name="arrivalDate" type="date" required /></div><div><label class="field-label" for="arrivalTime">Expected arrival</label><input class="field" id="arrivalTime" name="arrivalTime" type="time" required /></div></div>
+          <div><label class="field-label" for="passengers">Passengers</label><input class="field" id="passengers" name="passengers" type="number" min="1" max="8" value="2" required /></div>
+          <div><label class="field-label" for="bookingRef">Stay booking reference (optional)</label><input class="field" id="bookingRef" name="bookingRef" /></div>
+          <button class="button" type="submit">Request transfer</button><div class="status-line" id="transferStatus" aria-live="polite"></div>
+        </form>
+        <aside><div class="card summary-card"><h3>Your route</h3><div class="summary-line"><span>Private airport transfer</span><strong>Fare confirmed by email</strong></div><div class="summary-line"><span>Flight monitoring</span><strong>Included</strong></div><div class="summary-line"><span>Ferry tickets</span><strong>Not Included</strong></div></div><div class="notice" style="margin-top:12px"><strong>No charge today</strong><br /><span>After we confirm a driver, we’ll email the final price and a secure payment link.</span></div></aside>
+      </div>
+    </div>
+    <div class="transfer-confirm" id="transferConfirmed"><div class="checkmark">✓</div><h1 class="page-title">Transfer requested!</h1><p class="page-lead" style="margin-inline:auto">Confirmation has been sent to your hosts. We’ll reply with driver availability, the exact price and payment link.</p><div style="display:flex;justify-content:center;gap:10px;margin-top:22px"><a class="button" href="/planning">View our Gozo guide</a><a class="button secondary" href="/">Back home</a></div></div>
+  </section>
+  <script>
+    const flow = document.querySelector<HTMLElement>("#transferFlow")!;
+    const form = flow.querySelector<HTMLFormElement>("#transferForm")!;
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault(); const button = form.querySelector<HTMLButtonElement>("button[type=submit]")!; const status = flow.querySelector<HTMLElement>("#transferStatus")!; button.disabled = true; status.textContent = "Sending your request…";
+      try { const response = await fetch("/_actions/requestTransfer", { method: "POST", body: new FormData(form) }); const result = await response.json(); if (!response.ok || result.error) throw new Error(result.error?.message || "Could not send request"); flow.querySelector<HTMLElement>("#transferRequest")!.hidden = true; flow.querySelector<HTMLElement>("#transferConfirmed")!.classList.add("visible"); window.scrollTo({ top: 0, behavior: "smooth" }); }
+      catch (error) { status.textContent = error instanceof Error ? error.message : "Please try again."; button.disabled = false; }
+    });
+  </script>
+</Layout>

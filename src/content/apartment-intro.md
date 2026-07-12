@@ -1,0 +1,1 @@
+A charming sea-view apartment with a fully equipped kitchen and two air-conditioned bedrooms, one with an ensuite. Four proper beds plus a sofa bed sleep up to six guests. The spacious balcony has sunset views, and Xlendi beach, restaurants, bars and a grocery shop are a two-minute walk away. Complimentary Wi-Fi is included.

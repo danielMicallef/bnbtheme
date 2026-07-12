@@ -1,0 +1,18 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { Image } from "astro:assets";
+import a from "../assets/images/01_gallery_a.webp";
+import b from "../assets/images/02_gallery_view.webp";
+import c from "../assets/images/03_kitchen.webp";
+import d from "../assets/images/04_sofa_area.webp";
+import e from "../assets/images/05_sofa_area_2.webp";
+import f from "../assets/images/06_sofa_kitchen_area.webp";
+import g from "../assets/images/07_dining_sofa.webp";
+import h from "../assets/images/08_corridor.webp";
+import i from "../assets/images/09_bedroom2_a.webp";
+import j from "../assets/images/10_main_bedroom.webp";
+import k from "../assets/images/11_mainbath_a.webp";
+import l from "../assets/images/12_beach.webp";
+const photos = [[a,"Balcony view"],[b,"Sunset view"],[c,"Kitchen"],[d,"Living room"],[e,"Sofa area"],[f,"Open-plan living space"],[g,"Dining area"],[h,"Hallway"],[i,"Second bedroom"],[j,"Main bedroom"],[k,"Bathroom"],[l,"Xlendi beach"]] as const;
+---
+<Layout title="Photo gallery"><section class="page shell"><span class="eyebrow">Take a look around</span><h1 class="page-title">The apartment in pictures</h1><div class="places-grid">{photos.map(([photo, alt]) => <a href={photo.src} target="_blank" class="card place-card"><Image src={photo} alt={alt} widths={[400,800]} sizes="(max-width:800px) 100vw, 33vw" style="width:100%;height:230px;object-fit:cover" /></a>)}</div></section></Layout>

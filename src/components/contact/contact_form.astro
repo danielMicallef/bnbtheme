@@ -1,0 +1,24 @@
+<div id="contactSuccess" class="success" hidden>Thank you — your message has been sent. We’ll reply as soon as possible.</div>
+<form id="contactForm" class="card form-card form-grid">
+  <h2 style="margin:0;font-size:1rem">Send us a message</h2>
+  <div><label class="field-label" for="name">Your name</label><input class="field" id="name" name="name" required autocomplete="name" /></div>
+  <div><label class="field-label" for="email">Email</label><input class="field" id="email" name="email" type="email" required autocomplete="email" /></div>
+  <div class="message-field"><label class="field-label" for="message">How can we help?</label><textarea class="field form-message" id="message" name="message" required placeholder="Airport transfer, early check-in…"></textarea></div>
+  <button class="button dark" id="sendButton" type="submit">Send message</button><div class="status-line" id="contactStatus" aria-live="polite"></div>
+</form>
+<script>
+  const form = document.querySelector<HTMLFormElement>("#contactForm");
+  form?.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    const button = form.querySelector<HTMLButtonElement>("#sendButton")!;
+    const status = form.querySelector<HTMLElement>("#contactStatus")!;
+    button.disabled = true; status.textContent = "Sending…";
+    try {
+      const response = await fetch("/_actions/sendContactEmail", { method: "POST", body: new FormData(form) });
+      const result = await response.json();
+      if (!response.ok || result.error) throw new Error(result.error?.message || "Could not send message");
+      form.reset(); form.hidden = true; document.querySelector<HTMLElement>("#contactSuccess")!.hidden = false;
+    } catch (error) { status.textContent = error instanceof Error ? error.message : "Please try again."; }
+    finally { button.disabled = false; }
+  });
+</script>

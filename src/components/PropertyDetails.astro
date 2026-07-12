@@ -1,9 +1,9 @@
 ---
 import amenities from "../data/amenities.json";
-import PropertyMap from "./PropertyMap.astro";
 import GettingToXlendi from '../components/planning/GettingToXlendi.astro';
 import property from "../data/property.json";
-import { Mail, PhoneCall } from '@lucide/astro';
+import PropertyThingsToKnow from './PropertyThingsToKnow.astro';
+
 const totalAmenities = amenities.categories.reduce(
   (acc, category) => category.unavailable ? acc: acc + category.items.length,
   0
@@ -79,24 +79,4 @@ const totalAmenities = amenities.categories.reduce(
   <GettingToXlendi />
 </div>
 
-<div class="p-6 border-b border-gray-200">
-  <h3 class="text-xl font-semibold">Things to know</h3>
-  <div class="grid md:grid-cols-3 space-y-2">
-    <div>
-      <h4 class="text-lg">House Rules</h4>
-      <p>Check-in: After 3:00 PM</p>
-      <p>Check-out: Before 10:00 AM</p>
-      <p>6 guests maximum</p>
-    </div>
-    <div>
-      <h4 class="text-lg">Cancellation Policy</h4>
-      <p>Cancel up to 7 days before to get a full refund (when booking directly)</p>
-    </div>
-    <div>
-      <h4 class="text-lg">Contact</h4>
-      <p><a class="flex items-center" href={`tel:${property.contact.phone}`}><PhoneCall class="mr-2" />{property.contact.phone}</a></p>
-      <p><a class="flex items-center" target="_blank" href={`mailto:${property.contact.email}`}><Mail class="mr-2" />{property.contact.email}</a></p>
-    </div>
-  </div>
-  
-</div>
+<PropertyThingsToKnow />

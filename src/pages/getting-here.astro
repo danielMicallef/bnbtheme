@@ -1,0 +1,23 @@
+---
+import Layout from "../layouts/Layout.astro";
+import mapImage from "../assets/images/other/malta-gozo-tourist-map.png";
+import { Content as Intro } from "../content/getting-here-intro.md";
+---
+<Layout title="Getting here">
+  <section class="page shell">
+    <span class="eyebrow">Travel to Xlendi</span><h1 class="page-title">Getting here</h1><div class="page-lead"><Intro /></div>
+    <div class="journey-grid">
+      <div class="journey-steps">
+        <article class="card journey-step"><h3>⛴ Malta → Gozo</h3><p><strong>Gozo Ferry:</strong> 25 minutes from Ċirkewwa to Mġarr, every 30–45 minutes. <strong>Fast Ferry:</strong> 45 minutes from Valletta; weather dependent.</p><p class="journey-actions"><a class="button secondary small" href="https://www.gozochannel.com/ferry/schedule/" target="_blank">Gozo Channel schedule</a><a class="button secondary small" href="https://gozohighspeed.com/pages/schedule" target="_blank">Fast Ferry schedule</a></p></article>
+        <article class="card journey-step"><h3>🚌 Mġarr Harbour → Xlendi</h3><p>Take bus 301 to Victoria, then transfer to bus 306 or 330 to Xlendi.</p><p class="journey-actions"><a class="button secondary small" href="https://www.publictransport.com.mt/route/301/" target="_blank">Bus 301</a><a class="button secondary small" href="https://www.publictransport.com.mt/route/306/" target="_blank">Bus 306</a><a class="button secondary small" href="https://www.publictransport.com.mt/route/330" target="_blank">Bus 330</a></p></article>
+        <article class="card journey-step"><h3>🚕 Airport transfer</h3><p>We can arrange a private taxi from Malta International Airport straight to the apartment, ferry included.</p><p class="journey-actions"><a class="button small" href="/transfer">Schedule a transfer</a></p></article>
+        <article class="card journey-step"><h3>🚗 Hire a car</h3><p>We can arrange a hire car for your stay, with pickup or delivery details confirmed before arrival.</p><p class="journey-actions"><a class="button small" href="/car-hire">Request a hire car</a></p></article>
+      </div>
+      <div class="map-stack">
+        <iframe class="map-frame" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3226.6891686436165!2d14.2173242!3d36.0278831!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x130fb5c4a6418c01%3A0xad5bc05b6010c351!2sSeaview%20Apartment%20Xlendi!5e0!3m2!1sen!2smt!4v1759501444464!5m2!1sen!2smt" loading="lazy" title="Map of Sunset Seaview Apartment"></iframe>
+        <a class="button secondary" href="https://maps.app.goo.gl/tYJopVSXFqMtAf3x7" target="_blank">Open in Google Maps</a>
+        <h2 style="margin:10px 0 0;font-size:1rem">Tourist map of Malta &amp; Gozo</h2><a href={mapImage.src} target="_blank"><img class="tourist-map" src={mapImage.src} alt="Tourist map of Malta and Gozo" /></a><small style="color:var(--muted)">Map created by VisitMalta for tourists · tap to zoom</small>
+      </div>
+    </div>
+  </section>
+</Layout>

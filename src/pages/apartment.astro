@@ -1,0 +1,20 @@
+---
+import Layout from "../layouts/Layout.astro";
+import amenities from "../data/amenities.json";
+import { Content as Details } from "../content/apartment-details.md";
+const total = amenities.categories.filter((c) => !c.unavailable).reduce((n, c) => n + c.items.length, 0);
+---
+<Layout title="The apartment">
+  <section class="page shell">
+    <span class="eyebrow">Your home in Gozo</span>
+    <h1 class="page-title">The apartment</h1>
+    <div class="page-lead"><Details /></div>
+    <div class="info-grid">
+      <article class="card info-card"><h3>Where you’ll sleep</h3><p>Bedroom 1 — queen bed, ensuite<br />Bedroom 2 — double bed or 2 singles<br />Living room — sofa bed (sleeps 6 total)</p></article>
+      <article class="card info-card"><h3>Check-in &amp; check-out</h3><p>Self check-in with lockbox, any time after 3pm. Check-out before 10am — message us for an early arrival or late checkout and we’ll try to accommodate.</p></article>
+      <article class="card info-card"><h3>Top amenities</h3><div class="checks"><span>Sea view</span><span>Full kitchen</span><span>Wifi + workspace</span><span>AC (~€2/night)</span><span>Washer in unit</span><span>HDTV + Netflix</span><span>Free parking</span><span>Crib available</span></div><details style="margin-top:14px"><summary class="button secondary small">Show all {total} amenities</summary><div class="checks" style="margin-top:14px">{amenities.categories.filter((c) => !c.unavailable).flatMap((c) => c.items).map((item) => <span>{item}</span>)}</div></details></article>
+      <div style="display:grid;gap:14px"><article class="card info-card"><h3>House rules</h3><p>No smoking · no parties · 6 guests max · pets on request · respect the neighbours · switch off lights and AC when leaving.</p></article><div class="notice"><strong>Free cancellation</strong><br /><span>Full refund up to 7 days before check-in when booking directly.</span></div></div>
+    </div>
+    <a class="button" style="margin-top:24px" href="/book">Check availability</a>
+  </section>
+</Layout>

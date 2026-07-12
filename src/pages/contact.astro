@@ -1,36 +1,19 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import {Content as AboutUs} from '../components/contact/about_us.md';
-import { Mail, PhoneCall, Languages } from '@lucide/astro';
-import property from '../data/property.json'
+import Layout from "../layouts/Layout.astro";
+import ContactForm from "../components/contact/contact_form.astro";
+import { Image } from "astro:assets";
+import daniel from "../assets/hosts/primary_host.webp";
+import rebecca from "../assets/hosts/secondary_host.webp";
+import { Content as About } from "../components/contact/about_us.md";
+import property from "../data/property.json";
 ---
-
-<Layout>
-  <div class="space-y-8">
+<Layout title="Contact your hosts">
+  <section class="page shell"><span class="eyebrow">We’re here to help</span><div class="contact-grid">
     <div>
-      <h1>Contact Your Hosts</h1>
-      <div class="space-y-8">
-        <div class="grid grid-cols-1 md:grid-cols-2 space-y-2">
-          <div class="flex items-center space-x-2">
-            <PhoneCall />
-            <a href={`tel:${property.contact.phone}`}>{property.contact.phone}</a>
-          </div>
-          <div class="flex items-center space-x-2">
-            <Mail />
-            <a target="_blank" href={`mailto:${property.contact.email}`}>{property.contact.email}</a>
-          </div>
-        </div>
-        <div class="flex space-x-2">
-          <Languages /> <span>{property.languages.join(', ')}</span>
-        </div>
-        <div class="card bg-white shadow-xl mt-4">
-          <div class="card-body items-center">
-            <div class="italic">
-              <AboutUs/>
-            </div>
-          </div>
-        </div>
-      </div>
+      <div class="host-intro"><span class="avatars"><Image src={rebecca} alt="Rebecca" /><Image src={daniel} alt="Daniel" /></span><h1 class="page-title">Your hosts, Rebecca &amp; Daniel</h1><p class="page-lead" style="margin-inline:auto">English, Maltese, Italian · best reached by text or email</p></div>
+      <div class="contact-actions"><a class="button" href={`https://wa.me/${property.contact.phone.replace(/\D/g, "")}`}>💬 WhatsApp</a><a class="button secondary" href={`tel:${property.contact.phone}`}>📞 {property.contact.phone}</a><a class="button secondary wide" href={`mailto:${property.contact.email}`}>✉️ Email us</a></div>
+      <div class="card prose-card"><About /></div>
     </div>
-  </div>
+    <ContactForm />
+  </div></section>
 </Layout>
